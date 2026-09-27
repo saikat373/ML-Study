@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>90-Day AI Engineer Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4f7fa;
+  --surface: #ffffff;
+  --surface-2: #edf2f7;
+  --surface-3: #e2ebf3;
+  --border: #c6d9e8;
+  --text: #0d1e2e;
+  --text-dim: #3d5c72;
+  --text-muted: #7fa5b8;
+  --p1: #0a9c7e;
+  --p1-dim: rgba(10,156,126,0.10);
+  --p1-glow: rgba(10,156,126,0.18);
+  --p2: #c47f00;
+  --p2-dim: rgba(196,127,0,0.10);
+  --p2-glow: rgba(196,127,0,0.18);
+  --p3: #6b42d4;
+  --p3-dim: rgba(107,66,212,0.10);
+  --p3-glow: rgba(107,66,212,0.18);
+  --radius: 14px;
+  --ff-display: 'Syne', sans-serif;
+  --ff-body: 'Plus Jakarta Sans', sans-serif;
+  --ff-mono: 'Fira Code', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--ff-body);
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(10,156,126,0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(107,66,212,0.05) 0%, transparent 50%),
+    linear-gradient(rgba(10,156,126,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10,156,126,0.05) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 44px 44px, 44px 44px;
+  pointer-events: none;
+}
+
+/* ─── HEADER ─── */
+.header {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(244, 247, 250, 0.93);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  max-width: 1160px; margin: 0 auto;
+  padding: 12px 24px;
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+}
+.logo {
+  font-family: var(--ff-display);
+  font-size: 17px; font-weight: 800;
+  background: linear-gradient(120deg, var(--p1), #1565c0, var(--p3));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; white-space: nowrap; flex-shrink: 0;
+}
+.phase-tabs {
+  display: flex; gap: 4px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 4px;
+  flex-shrink: 0;
+}
+.phase-tab {
+  padding: 5px 13px; border-radius: 7px; border: none;
+  background: transparent; color: var(--text-dim);
+  font-family: var(--ff-body); font-size: 12.5px; font-weight: 500;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.phase-tab:hover { color: var(--text); background: rgba(0,0,0,0.05); }
+.phase-tab.active[data-phase="0"] { background: rgba(0,0,0,0.07); color: var(--text); }
+.phase-tab.active[data-phase="1"] { background: var(--p1-dim); color: var(--p1); }
+.phase-tab.active[data-phase="2"] { background: var(--p2-dim); color: var(--p2); }
+.phase-tab.active[data-phase="3"] { background: var(--p3-dim); color: var(--p3); }
+.search-wrap {
+  flex: 1; min-width: 140px; max-width: 260px;
+  display: flex; align-items: center; gap: 8px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 9px; padding: 7px 12px;
+}
+.search-wrap svg { opacity: 0.35; flex-shrink: 0; }
+.search-wrap input {
+  border: none; background: transparent; color: var(--text);
+  font-family: var(--ff-body); font-size: 13px; outline: none; width: 100%;
+}
+.search-wrap input::placeholder { color: var(--text-dim); }
+.collapse-all-btn {
+  font-family: var(--ff-mono); font-size: 11px; color: var(--text-dim);
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 7px; padding: 6px 12px;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+}
+.collapse-all-btn:hover { color: var(--text); border-color: #93b8cc; }
+
+/* ─── HERO ─── */
+.hero {
+  position: relative; z-index: 1;
+  text-align: center; padding: 72px 24px 56px;
+  max-width: 780px; margin: 0 auto;
+}
+.hero-badge {
+  display: inline-block;
+  background: rgba(10,156,126,0.09);
+  border: 1px solid rgba(10,156,126,0.28);
+  color: var(--p1); font-family: var(--ff-mono);
+  font-size: 10.5px; font-weight: 500;
+  padding: 5px 14px; border-radius: 20px;
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 22px;
+}
+.hero h1 {
+  font-family: var(--ff-display);
+  font-size: clamp(38px, 5.5vw, 62px);
+  font-weight: 800; line-height: 1.08; margin-bottom: 18px; color: var(--text);
+}
+.hero h1 .grad {
+  background: linear-gradient(120deg, var(--p1) 0%, #1565c0 45%, var(--p3) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero p { color: var(--text-dim); font-size: 16px; max-width: 560px; margin: 0 auto 36px; }
+.hero-pills { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.hero-pill {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 40px; padding: 7px 16px;
+  font-size: 13px; font-weight: 500;
+}
+.hero-pill .dot { width: 8px; height: 8px; border-radius: 50%; }
+.dot-1 { background: var(--p1); }
+.dot-2 { background: var(--p2); }
+.dot-3 { background: var(--p3); }
+
+/* ─── PROGRESS ─── */
+.progress-section {
+  position: relative; z-index: 1;
+  max-width: 1160px; margin: 0 auto 48px; padding: 0 24px;
+}
+.progress-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 28px;
+  display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
+}
+.progress-stats { display: flex; gap: 28px; flex-shrink: 0; flex-wrap: wrap; }
+.stat { text-align: center; }
+.stat-num {
+  font-family: var(--ff-display); font-size: 30px;
+  font-weight: 800; display: block;
+}
+.stat-lbl {
+  font-family: var(--ff-mono); font-size: 10px;
+  color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em;
+}
+.stat.c1 .stat-num { color: var(--p1); }
+.stat.c2 .stat-num { color: var(--p2); }
+.stat.c3 .stat-num { color: var(--p3); }
+.stat.c0 .stat-num { color: var(--text); }
+.progress-right { flex: 1; min-width: 180px; }
+.prog-bar-lbl {
+  display: flex; justify-content: space-between;
+  font-size: 12px; color: var(--text-dim); margin-bottom: 9px;
+  font-family: var(--ff-mono);
+}
+.prog-bar-track {
+  height: 6px; background: var(--surface-2);
+  border-radius: 3px; overflow: hidden; margin-bottom: 12px;
+}
+.prog-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--p1), #1565c0, var(--p3));
+  border-radius: 3px; transition: width 0.5s ease;
+}
+.reset-btn {
+  font-family: var(--ff-mono); font-size: 10.5px;
+  color: var(--text-muted); background: none; border: none;
+  cursor: pointer; transition: color 0.2s; text-decoration: underline;
+}
+.reset-btn:hover { color: var(--text-dim); }
+
+/* ─── MAIN CONTENT ─── */
+.main {
+  position: relative; z-index: 1;
+  max-width: 1160px; margin: 0 auto;
+  padding: 0 24px 100px;
+}
+
+/* Phase block */
+.phase-block { margin-bottom: 64px; }
+.phase-block.hidden { display: none; }
+
+.phase-divider {
+  display: flex; align-items: center;
+  gap: 18px; margin-bottom: 36px;
+}
+.phase-divider-line { flex: 1; height: 1px; background: var(--border); }
+.phase-divider-content { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.phase-badge {
+  font-family: var(--ff-mono); font-size: 10px;
+  font-weight: 500; letter-spacing: 0.12em;
+  text-transform: uppercase; padding: 5px 13px;
+  border-radius: 20px; border: 1px solid currentColor;
+}
+.phase-badge.p1 { color: var(--p1); background: var(--p1-dim); border-color: rgba(10,156,126,0.35); }
+.phase-badge.p2 { color: var(--p2); background: var(--p2-dim); border-color: rgba(196,127,0,0.35); }
+.phase-badge.p3 { color: var(--p3); background: var(--p3-dim); border-color: rgba(107,66,212,0.35); }
+.phase-name {
+  font-family: var(--ff-display);
+  font-size: 20px; font-weight: 700; color: var(--text);
+}
+
+/* Week group */
+.week-group { margin-bottom: 28px; }
+.week-group.hidden { display: none; }
+.week-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 13px;
+}
+.week-lbl {
+  font-family: var(--ff-mono); font-size: 10px;
+  color: var(--text-muted); letter-spacing: 0.1em;
+  text-transform: uppercase; white-space: nowrap;
+}
+.week-title {
+  font-size: 13.5px; font-weight: 600; color: var(--text-dim);
+}
+.week-line { flex: 1; height: 1px; background: var(--border); opacity: 0.4; }
+
+/* Days grid */
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 11px;
+}
+
+/* Day card */
+.day-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.22s, box-shadow 0.22s, transform 0.18s;
+  animation: fadeUp 0.35s ease both;
+}
+.day-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 10px 28px rgba(0,0,0,0.10);
+  transform: translateY(-2px);
+}
+.day-card.p1 { --accent: rgba(10,156,126,0.50); --accent-solid: var(--p1); --accent-dim: var(--p1-dim); }
+.day-card.p2 { --accent: rgba(196,127,0,0.50); --accent-solid: var(--p2); --accent-dim: var(--p2-dim); }
+.day-card.p3 { --accent: rgba(107,66,212,0.50); --accent-solid: var(--p3); --accent-dim: var(--p3-dim); }
+.day-card.completed { opacity: 0.55; }
+.day-card.hidden { display: none; }
+
+.card-top {
+  padding: 16px 18px;
+  display: flex; align-items: flex-start; gap: 13px;
+  cursor: pointer; user-select: none;
+}
+.day-num {
+  font-family: var(--ff-mono); font-size: 10.5px; font-weight: 500;
+  color: var(--accent-solid);
+  background: var(--accent-dim);
+  border: 1px solid var(--border);
+  border-radius: 7px; padding: 4px 9px;
+  white-space: nowrap; flex-shrink: 0; margin-top: 1px;
+}
+.card-info { flex: 1; }
+.card-title {
+  font-family: var(--ff-display);
+  font-size: 14.5px; font-weight: 700; color: var(--text);
+  line-height: 1.3; margin-bottom: 7px;
+}
+.day-card.completed .card-title {
+  text-decoration: line-through;
+  text-decoration-color: rgba(0,0,0,0.25);
+}
+.card-meta { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+.tag {
+  font-family: var(--ff-mono); font-size: 9.5px; font-weight: 500;
+  padding: 2px 7px; border-radius: 4px; letter-spacing: 0.04em;
+}
+.tag.light { background: rgba(0,0,0,0.05); color: var(--text-dim); }
+.tag.accent { background: var(--accent-dim); color: var(--accent-solid); }
+.tag.dur { color: var(--text-muted); background: transparent; font-style: normal; padding-left: 0; }
+.card-chevron {
+  flex-shrink: 0; width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); font-size: 12px;
+  transition: transform 0.25s; margin-top: 2px;
+}
+.day-card.open .card-chevron { transform: rotate(180deg); color: var(--accent-solid); }
+
+/* Checkbox */
+.card-check {
+  flex-shrink: 0; width: 22px; height: 22px;
+  border: 2px solid var(--border); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.22s; margin-top: 1px;
+  position: relative; z-index: 2;
+}
+.card-check:hover { border-color: var(--accent-solid); }
+.day-card.completed .card-check {
+  background: var(--accent-solid); border-color: var(--accent-solid);
+}
+.check-icon { display: none; width: 12px; height: 12px; color: #fff; }
+.day-card.completed .check-icon { display: block; }
+
+/* Expanded content */
+.card-body {
+  display: none;
+  border-top: 1px solid var(--border);
+  padding: 18px 20px;
+  animation: expandIn 0.22s ease;
+}
+.day-card.open .card-body { display: block; }
+@keyframes expandIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.body-section { margin-bottom: 16px; }
+.body-section:last-child { margin-bottom: 0; }
+.section-head {
+  font-family: var(--ff-mono); font-size: 9.5px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--accent-solid); margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.section-head .ico { font-size: 12px; }
+
+.why-box {
+  background: var(--accent-dim);
+  border-left: 3px solid var(--accent-solid);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 14px;
+  font-size: 13.5px; color: var(--text);
+  line-height: 1.72; font-style: italic;
+}
+.concepts-ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.concepts-ul li {
+  font-size: 13px; color: var(--text-dim);
+  padding-left: 16px; position: relative; line-height: 1.55;
+}
+.concepts-ul li::before {
+  content: '→';
+  position: absolute; left: 0; top: 0;
+  color: var(--accent-solid); font-size: 11px; font-family: var(--ff-mono);
+}
+.tools-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.tool-pill {
+  font-family: var(--ff-mono); font-size: 11px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  color: var(--text); padding: 4px 10px; border-radius: 6px;
+  transition: border-color 0.2s;
+}
+.tool-pill:hover { border-color: var(--accent-solid); }
+.practice-box {
+  background: var(--surface-2);
+  border: 1px solid var(--border); border-radius: 9px;
+  padding: 12px 14px; font-size: 13px;
+  color: var(--text-dim); line-height: 1.65;
+}
+.practice-box strong { color: var(--text); font-weight: 600; }
+
+/* No results */
+.no-results {
+  text-align: center; padding: 80px 24px;
+  color: var(--text-muted); display: none;
+}
+.no-results h3 {
+  font-family: var(--ff-display);
+  font-size: 22px; color: var(--text-dim); margin-bottom: 8px;
+}
+
+/* Scroll to top */
+.scroll-top {
+  position: fixed; bottom: 28px; right: 28px; z-index: 200;
+  width: 42px; height: 42px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--text-dim); font-size: 16px;
+  transition: all 0.22s; opacity: 0; pointer-events: none;
+}
+.scroll-top.show { opacity: 1; pointer-events: all; }
+.scroll-top:hover {
+  background: var(--border); color: var(--text);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 700px) {
+  .days-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 34px; }
+  .header-inner { gap: 8px; }
+  .phase-tab { padding: 5px 10px; font-size: 11.5px; }
+  .progress-stats { gap: 18px; }
+  .stat-num { font-size: 24px; }
+}
+@media (max-width: 480px) {
+  .hero { padding: 48px 20px 40px; }
+  .search-wrap { max-width: 100%; }
+  .collapse-all-btn { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">⚡ AI Engineer Roadmap</div>
+    <div class="phase-tabs">
+      <button class="phase-tab active" data-phase="0" onclick="filterPhase(0, this)">All</button>
+      <button class="phase-tab" data-phase="1" onclick="filterPhase(1, this)">🌱 Beginner</button>
+      <button class="phase-tab" data-phase="2" onclick="filterPhase(2, this)">🔥 Intermediate</button>
+      <button class="phase-tab" data-phase="3" onclick="filterPhase(3, this)">🚀 Advanced</button>
+    </div>
+    <div class="search-wrap">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Search topics…" oninput="filterSearch(this.value)">
+    </div>
+    <button class="collapse-all-btn" onclick="collapseAll()">Collapse All</button>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-badge">Beginner → AI Engineer · 90 Days</div>
+  <h1>Your Complete<br><span class="grad">AI Engineering</span><br>Roadmap</h1>
+  <p>A structured, day-by-day learning path from Generative AI fundamentals to production-ready AI Agents — with every tool, concept, and <em>reason why</em> explained.</p>
+  <div class="hero-pills">
+    <div class="hero-pill"><span class="dot dot-1"></span> Phase 1: Foundations (Days 1–30)</div>
+    <div class="hero-pill"><span class="dot dot-2"></span> Phase 2: Building (Days 31–60)</div>
+    <div class="hero-pill"><span class="dot dot-3"></span> Phase 3: Agents & Production (Days 61–90)</div>
+  </div>
+</section>
+
+<!-- Progress -->
+<section class="progress-section">
+  <div class="progress-card">
+    <div class="progress-stats">
+      <div class="stat c0">
+        <span class="stat-num" id="totalDone">0</span>
+        <span class="stat-lbl">Days Done</span>
+      </div>
+      <div class="stat c1">
+        <span class="stat-num" id="p1Done">0</span>
+        <span class="stat-lbl">Beginner</span>
+      </div>
+      <div class="stat c2">
+        <span class="stat-num" id="p2Done">0</span>
+        <span class="stat-lbl">Intermediate</span>
+      </div>
+      <div class="stat c3">
+        <span class="stat-num" id="p3Done">0</span>
+        <span class="stat-lbl">Advanced</span>
+      </div>
+    </div>
+    <div class="progress-right">
+      <div class="prog-bar-lbl">
+        <span>Overall Progress</span>
+        <span id="progPct">0 / 90</span>
+      </div>
+      <div class="prog-bar-track">
+        <div class="prog-bar-fill" id="progFill" style="width:0%"></div>
+      </div>
+      <button class="reset-btn" onclick="if(confirm('Reset all progress?')) resetProgress()">Reset progress</button>
+    </div>
+  </div>
+</section>
+
+<!-- Main Roadmap -->
+<main class="main" id="roadmapMain"></main>
+
+<div class="no-results" id="noResults">
+  <h3>Nothing found</h3>
+  <p>Try a different search term or clear the filter.</p>
+</div>
+
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ─── ROADMAP DATA ─────────────────────────────────────────────────────────────
+const ROADMAP = [
+
+// ═══════════════════════════════════════════════════════════════════
+// PHASE 1 · BEGINNER · DAYS 1–30
+// ═══════════════════════════════════════════════════════════════════
+{
+  phase:1, week:1, weekTitle:"Generative AI Fundamentals",
+  day:1, title:"Introduction to Generative AI",
+  duration:"3–4 hrs", tags:["GenAI","Theory","Foundations"],
+  why:"You can't build what you don't understand. Generative AI is a paradigm shift from traditional ML — instead of predicting labels, these models CREATE new data (text, images, audio). This mental model is the foundation for the next 90 days. Think of it as the difference between a judge (traditional ML) and an artist (GenAI).",
+  concepts:["What is AI, Machine Learning, and Deep Learning — and how they nest inside each other","Discriminative vs Generative models: classifiers predict labels, generators create content","Types of generative models: LLMs (text), Diffusion models (images), VAEs, GANs, and multimodal","The GenAI timeline: GPT-1 (2018) → BERT → GPT-3 → ChatGPT → GPT-4 → Claude → Gemini","Real-world use cases: code generation, document summarization, image creation, voice assistants"],
+  tools:[],
+  practice:"Explore ChatGPT, Claude, and Gemini with the same complex prompt. Write a 1-page reflection comparing their outputs. What did they do well? Where did they fail?"
+},
+{
+  phase:1, week:1, weekTitle:"Generative AI Fundamentals",
+  day:2, title:"How Neural Networks Power AI",
+  duration:"4–5 hrs", tags:["Neural Networks","Deep Learning","Theory"],
+  why:"LLMs ARE neural networks — very large ones. Understanding neurons, layers, and backpropagation gives you the mental model to understand WHY LLMs sometimes hallucinate, why bigger models perform better, and how training works. You're not going to train them from scratch, but you need this to read any AI paper.",
+  concepts:["The neuron: weighted inputs + activation function = output","Layers: input → hidden → output. Depth gives models the ability to learn complex patterns","Backpropagation: how the model 'learns' by adjusting weights based on errors","Loss functions: how we measure how wrong a model is (cross-entropy for text models)","Why deep learning works: scale + data + compute = emergent capabilities"],
+  tools:["numpy","matplotlib"],
+  practice:"Use NumPy to implement a single neuron that learns XOR with gradient descent. Visualize the loss curve with matplotlib."
+},
+{
+  phase:1, week:1, weekTitle:"Generative AI Fundamentals",
+  day:3, title:"The Transformer Architecture",
+  duration:"5–6 hrs", tags:["Transformers","Architecture","Theory"],
+  why:"Transformers are the backbone of EVERY modern LLM — GPT-4, Claude, Gemini, Llama. Understanding self-attention tells you WHY these models are so much better than older RNNs (they can attend to any word in a sentence simultaneously). You don't need to implement one, but reading the 'Attention Is All You Need' paper is a rite of passage.",
+  concepts:["Self-attention: how each word 'looks at' every other word to understand context","Multi-head attention: running multiple attention patterns in parallel to learn different relationships","Positional encoding: injecting order information since transformers process tokens in parallel","Encoder-decoder vs Decoder-only: BERT uses encoder (understanding), GPT uses decoder (generation)","Tokenization: how text gets split into subword tokens before entering the transformer"],
+  tools:["transformers (Hugging Face)"],
+  practice:"Read the abstract and architecture section of 'Attention Is All You Need' (2017). Use BertViz (pip install bertviz) to visualize attention patterns in a sentence."
+},
+{
+  phase:1, week:1, weekTitle:"Generative AI Fundamentals",
+  day:4, title:"What Are Large Language Models (LLMs)?",
+  duration:"4–5 hrs", tags:["LLMs","GPT","Claude","Fundamentals"],
+  why:"LLMs are your primary building material for the next 90 days. Understanding what they actually are — statistical next-token predictors trained on massive text — changes how you think about prompting and debugging. They're not 'intelligent' in a human sense; they're incredibly sophisticated pattern matchers. This insight is crucial for using them effectively.",
+  concepts:["LLMs at their core: predict the next token given all previous tokens (autoregressive)","Pre-training: trained on terabytes of internet text to learn world knowledge and language patterns","Instruction tuning (SFT): fine-tuned on human-written Q&A to follow instructions","RLHF: Reinforcement Learning from Human Feedback — teaches the model to give helpful, safe responses","The major LLM families: GPT-4o (OpenAI), Claude 3 (Anthropic), Gemini (Google), Llama 3 (Meta), Mistral"],
+  tools:["ChatGPT","Claude.ai","Google AI Studio"],
+  practice:"Compare GPT-4o, Claude 3.5, and Llama 3 on: (1) a coding task, (2) a creative writing task, (3) a math problem. Document strengths and weaknesses in a comparison table."
+},
+{
+  phase:1, week:1, weekTitle:"Generative AI Fundamentals",
+  day:5, title:"Tokens, Context Windows & Key LLM Concepts",
+  duration:"3–4 hrs", tags:["Tokens","Context Window","Temperature"],
+  why:"Before you write a single line of code calling an LLM API, you MUST understand tokens and context windows. They directly determine what your model can 'see', how much it costs, and why it cuts off mid-sentence. Temperature is the parameter you'll tweak most — understanding it saves hours of debugging.",
+  concepts:["Tokens ≠ words: GPT-4 uses ~0.75 words per token. 'Unbelievable' = 3 tokens. 'Hello' = 1 token","Context window: the maximum tokens a model can process at once (GPT-4 = 128K, Claude 3.5 = 200K)","Temperature: 0 = deterministic/consistent, 1 = creative/varied, >1 = chaotic","Top-p (nucleus sampling): only sample from the top-p% most likely tokens — another creativity dial","System vs User vs Assistant messages: the three roles in the chat format every model API uses"],
+  tools:["tiktoken","tiktokenizer.vercel.app"],
+  practice:"Use the Tiktokenizer web tool to count tokens for: a tweet, a paragraph, and a page of code. Then use tiktoken in Python to count tokens programmatically. Estimate the cost of processing a 10-page document with GPT-4o."
+},
+{
+  phase:1, week:1, weekTitle:"Generative AI Fundamentals",
+  day:6, title:"The AI Model Landscape & Ecosystem",
+  duration:"3–4 hrs", tags:["OpenAI","Anthropic","Google","Meta","Landscape"],
+  why:"As an AI engineer, you'll choose between models for every project. Knowing the landscape — who makes what, open vs closed source, strengths vs weaknesses — lets you make informed architectural decisions. Using the wrong model can mean 10x higher costs or 50% worse quality.",
+  concepts:["Closed-source (API only): OpenAI GPT-4o, Anthropic Claude 3.5, Google Gemini 1.5 Pro","Open-source (run anywhere): Meta Llama 3, Mistral, Mixtral, Falcon, Qwen","Key differences: capability vs cost vs speed vs privacy vs context window size","Benchmarks to know: MMLU (reasoning), HumanEval (coding), MT-Bench (chat quality)","When to use which: GPT-4o for general tasks, Claude for long docs & reasoning, Llama for privacy"],
+  tools:["LM Arena (lmarena.ai)","Hugging Face Leaderboard"],
+  practice:"Visit lmarena.ai and participate in 10 model battles. Record which models win and what tasks they're judged on. Write a one-page 'model selection guide' for your own use."
+},
+{
+  phase:1, week:1, weekTitle:"Generative AI Fundamentals",
+  day:7, title:"Setting Up Your AI Development Environment",
+  duration:"4–5 hrs", tags:["Python","Setup","Environment","Best Practices"],
+  why:"A proper dev setup prevents 80% of beginner headaches. Virtual environments stop package conflicts. .env files keep your API keys out of GitHub (leaking a key costs real money). Git version control means you can undo mistakes. This is the professional foundation everything else is built on.",
+  concepts:["Python virtual environments: venv vs conda — why you need them, how to use them","pip and pip freeze: managing and reproducing your package environment","python-dotenv: loading API keys from .env files — NEVER hardcode keys in your code",".gitignore: always ignore .env files and __pycache__ before your first git commit","VS Code setup for AI development: Python extension, Jupyter, REST Client"],
+  tools:["python-dotenv","pip","venv","git","VS Code"],
+  practice:"Create a new project directory. Set up a venv, install python-dotenv, create a .env file with a placeholder API key, and write a script that loads it. Initialize a git repo with a proper .gitignore. This setup template will be reused for every project."
+},
+
+// ─── PHASE 1, WEEK 2 ─────────────────────────────────────────────
+{
+  phase:1, week:2, weekTitle:"Working with LLM APIs",
+  day:8, title:"Your First LLM API Call — OpenAI",
+  duration:"4–5 hrs", tags:["OpenAI","API","Python","Hands-on"],
+  why:"The OpenAI API is the most widely used LLM API in the world. The message format (system/user/assistant) is now an industry standard adopted by nearly every provider. Getting fluent with it means you can switch providers easily. This is your first real AI engineering code.",
+  concepts:["OpenAI SDK: pip install openai. The client.chat.completions.create() method","The messages array: [{role:'system', content:'...'}, {role:'user', content:'...'}]","Model selection: gpt-4o vs gpt-4o-mini — capability vs cost trade-off","The response object: response.choices[0].message.content to extract the answer","Streaming: stream=True for token-by-token output — makes apps feel responsive"],
+  tools:["openai","python-dotenv"],
+  practice:"Write a Python script that: (1) loads your OpenAI API key from .env, (2) sends a user message, (3) prints the response, (4) adds streaming. Then build a simple loop that lets you have a conversation (maintain message history manually)."
+},
+{
+  phase:1, week:2, weekTitle:"Working with LLM APIs",
+  day:9, title:"Anthropic Claude API",
+  duration:"3–4 hrs", tags:["Anthropic","Claude","API"],
+  why:"Claude (by Anthropic) excels at reasoning, coding, and handling very long documents. It's increasingly used in enterprise applications. Different providers have different strengths — and knowing multiple APIs makes you a more versatile engineer. Claude's API has some key differences from OpenAI's worth learning.",
+  concepts:["Anthropic SDK: pip install anthropic. The client.messages.create() method","Key difference from OpenAI: system is a top-level param, not in the messages array","Model names: claude-3-5-sonnet-20241022 (smartest), claude-3-haiku (fastest/cheapest)","The 200K context window: Claude's superpower — process entire books in one call","Extended thinking: Claude can 'think' step by step for harder problems before answering"],
+  tools:["anthropic","python-dotenv"],
+  practice:"Replicate yesterday's chatbot but with the Claude API. Then try giving both GPT-4o and Claude 3.5 Sonnet a complex multi-step reasoning problem and compare the quality of their responses."
+},
+{
+  phase:1, week:2, weekTitle:"Working with LLM APIs",
+  day:10, title:"Google Gemini & Other LLM APIs",
+  duration:"3–4 hrs", tags:["Gemini","API","Multi-provider"],
+  why:"Google Gemini 1.5 Pro has the largest public context window (2M tokens), making it uniquely suited for processing massive documents. Being comfortable with multiple LLM providers is a professional requirement — many production systems use different models for different tasks to optimize cost and quality.",
+  concepts:["Google Generative AI SDK: pip install google-generativeai","Gemini's unique capability: 2 million token context window — process an entire codebase","Multimodal inputs: Gemini can process text + images + audio + video natively","Cohere API: excellent for embeddings and multilingual applications","LiteLLM: a unified interface to 100+ LLM providers with one consistent API — very useful"],
+  tools:["google-generativeai","litellm"],
+  practice:"Use LiteLLM to send the same prompt to GPT-4o-mini, Claude Haiku, and Gemini Flash in a single script. Compare speed, quality, and cost. Build a simple model router that picks the cheapest model for simple queries."
+},
+{
+  phase:1, week:2, weekTitle:"Working with LLM APIs",
+  day:11, title:"API Parameters Deep Dive",
+  duration:"3–4 hrs", tags:["Temperature","Top-p","API Params"],
+  why:"Temperature and sampling parameters are the 'dials' you'll tune for every application. A customer service bot needs temperature 0 for consistency. A creative writing tool needs temperature 0.9 for variety. Understanding each parameter lets you tune outputs precisely instead of random trial and error.",
+  concepts:["Temperature (0→2): controls randomness. 0 = same answer every time. >1 = very creative","Top-p / nucleus sampling: sample only from tokens whose cumulative probability reaches p. Usually 0.9","Max tokens: cap the length of the response — important for cost control and preventing rambling","Stop sequences: tell the model to stop generating when it hits a specific string","Presence/frequency penalty: reduces repetition. Use when model starts repeating itself"],
+  tools:["openai","anthropic"],
+  practice:"Build an experiment: ask the same creative writing prompt with temperatures [0, 0.3, 0.7, 1.0, 1.5]. Document how the output changes. Repeat with a factual question — observe why high temperature is bad for facts."
+},
+{
+  phase:1, week:2, weekTitle:"Working with LLM APIs",
+  day:12, title:"Hugging Face Hub & Open-Source Models",
+  duration:"5–6 hrs", tags:["Hugging Face","Open Source","transformers"],
+  why:"Hugging Face is the GitHub of AI — 500,000+ models, datasets, and spaces. For privacy-sensitive data, cost-sensitive applications, or cutting-edge research models, open-source is essential. The transformers library's pipeline abstraction means you can run any model in 5 lines of code.",
+  concepts:["The Hugging Face Hub: models, datasets, spaces — how to navigate and search","The transformers library: the universal interface to 99% of open-source models","Pipeline abstraction: one line to run text-generation, text-classification, summarization, etc.","Model cards: documentation for every model — always read before using","Tokenizers: every model has its own tokenizer. AutoTokenizer loads the right one automatically"],
+  tools:["transformers","datasets","huggingface_hub","torch"],
+  practice:"Use the pipeline API to run: (1) text generation with Mistral-7B-Instruct, (2) sentiment analysis with distilbert, (3) summarization. Try the AutoTokenizer + AutoModelForCausalLM approach to understand what pipeline abstracts away."
+},
+{
+  phase:1, week:2, weekTitle:"Working with LLM APIs",
+  day:13, title:"Running Local LLMs with Ollama",
+  duration:"4–5 hrs", tags:["Ollama","Local LLMs","Privacy"],
+  why:"Running models locally is FREE, completely private (no data leaves your machine), and works offline. For development, testing, and processing sensitive data, local models are indispensable. Ollama is the easiest tool to get this working — one command installs and runs a model.",
+  concepts:["Ollama: a tool that downloads, manages, and serves LLMs locally via a REST API","Supported models: Llama 3, Mistral, Gemma 2, Phi-3, CodeLlama and 50+ others","The Ollama REST API is OpenAI-compatible — swap the base_url to test with local models","ollama Python library: clean Python interface to local models","Quantized models: Ollama uses 4-bit quantized models (Q4) — smaller but nearly as capable"],
+  tools:["ollama","openai (with base_url='http://localhost:11434/v1')"],
+  practice:"Install Ollama. Pull llama3 and mistral. Write a Python script that uses the OpenAI SDK with Ollama's API endpoint (they're compatible). Compare response quality on a coding task. Benchmark speed."
+},
+{
+  phase:1, week:2, weekTitle:"Working with LLM APIs",
+  day:14, title:"Error Handling, Rate Limits & Cost Management",
+  duration:"3–4 hrs", tags:["Best Practices","Rate Limits","tenacity","Cost"],
+  why:"LLM APIs fail — rate limits, network errors, timeouts. Production applications must handle these gracefully. API costs can spiral from $5 to $500/month unexpectedly. Professional AI engineers implement retry logic and cost tracking from day one, not as an afterthought.",
+  concepts:["Common API errors: RateLimitError, AuthenticationError, BadRequestError — handle each specifically","Exponential backoff: wait 2^attempt seconds before retrying — the standard for rate limits","tenacity library: decorator-based retry logic — @retry(wait=wait_exponential()) is clean and powerful","Caching: store LLM responses for identical prompts to avoid redundant API calls","Token counting before sending: estimate cost before each API call using tiktoken"],
+  tools:["tenacity","tiktoken","functools (lru_cache)"],
+  practice:"Wrap your chatbot from Day 8 with tenacity retry logic. Add a cost tracker that estimates dollars spent per session. Implement simple in-memory caching for repeated prompts."
+},
+
+// ─── PHASE 1, WEEK 3 ─────────────────────────────────────────────
+{
+  phase:1, week:3, weekTitle:"Prompt Engineering Mastery",
+  day:15, title:"What Is Prompt Engineering & Why It Matters",
+  duration:"3–4 hrs", tags:["Prompting","Foundations","Best Practices"],
+  why:"Your prompt is the most important variable in any LLM system — more impactful than which model you use. Good prompting can turn a mediocre model response into an exceptional one. Bad prompting makes even GPT-4 look stupid. This is the highest ROI skill in all of AI engineering — accessible to everyone, mastered by few.",
+  concepts:["Prompt = programming: you are giving the model instructions in natural language","The anatomy of a good prompt: context + instruction + input + output format","Why LLMs need explicit instructions: they're not mind-readers, they follow your lead","The role of the system prompt in defining the AI's 'persona' and behavioral rules","Prompt engineering is iterative: write, test, observe, refine, repeat"],
+  tools:["OpenAI Playground","Claude Console (claude.ai)"],
+  practice:"Take a vague prompt like 'Write about climate change' and progressively improve it with better context, specific instructions, and output format requirements. Document 5 versions and compare outputs."
+},
+{
+  phase:1, week:3, weekTitle:"Prompt Engineering Mastery",
+  day:16, title:"Zero-Shot & Few-Shot Prompting",
+  duration:"3–4 hrs", tags:["Zero-shot","Few-shot","Prompting"],
+  why:"Few-shot prompting (giving examples) is one of the most powerful techniques for complex classification and formatting tasks. By providing 2–5 examples, you can teach a model a task without any fine-tuning. Understanding when to add examples vs rely on zero-shot prevents unnecessary complexity.",
+  concepts:["Zero-shot: asking the model to do a task with no examples. Works for simple, common tasks","One-shot: providing one example before your request — greatly clarifies format","Few-shot: providing 2–5 labeled examples — dramatically improves accuracy on specialized tasks","Example selection matters: diverse, representative examples beat random ones","Negative examples: showing what NOT to do can be as powerful as showing what to do"],
+  tools:["openai","anthropic"],
+  practice:"Build a sentiment classifier with zero-shot, then few-shot (3 examples), then few-shot (10 examples). Test on 20 sentences and calculate accuracy. Observe how few-shot closes the gap for edge cases."
+},
+{
+  phase:1, week:3, weekTitle:"Prompt Engineering Mastery",
+  day:17, title:"Chain-of-Thought (CoT) Prompting",
+  duration:"3–4 hrs", tags:["Chain-of-Thought","Reasoning","Prompting"],
+  why:"Adding 'Let's think step by step' to a prompt famously improves GPT-3.5's performance on math benchmarks by 40–50%. CoT makes the model externalize its reasoning instead of jumping to answers. For any problem involving logic, math, or multi-step reasoning, CoT is non-negotiable.",
+  concepts:["Standard prompting: 'What is 17 × 23?' → model guesses","CoT prompting: 'Think step by step: 17 × 23 = ?' → model reasons through it","Zero-shot CoT: just adding 'Let's think step by step' to ANY prompt. Surprisingly powerful","Few-shot CoT: providing worked examples of step-by-step reasoning — most powerful variant","Tree of Thought (ToT): explore multiple reasoning paths simultaneously — for very complex tasks"],
+  tools:["openai","anthropic"],
+  practice:"Test CoT on: (1) a multi-step math word problem, (2) a logic puzzle, (3) a code debugging task. Compare answers with and without CoT. Implement few-shot CoT by providing 2 worked examples before asking your question."
+},
+{
+  phase:1, week:3, weekTitle:"Prompt Engineering Mastery",
+  day:18, title:"System Prompts, Personas & Role Assignment",
+  duration:"3–4 hrs", tags:["System Prompt","Persona","Role"],
+  why:"The system prompt is the constitution of your AI application. Every production chatbot, coding assistant, or customer service bot has a carefully engineered system prompt that defines its personality, capabilities, constraints, and response format. This is where you 'program' the AI for your specific use case.",
+  concepts:["System prompt purpose: sets context, rules, tone, and behavior for the entire conversation","Role assignment: 'You are an expert Python engineer...' — primes model for specialized responses","Behavioral rules: 'Always cite your sources', 'Never give medical advice', 'Respond in JSON'","Format control: specifying output structure in the system prompt ensures consistency","Persona design: balancing helpfulness, safety, and brand voice for production applications"],
+  tools:["openai","anthropic"],
+  practice:"Design system prompts for three different use cases: (1) a Python coding tutor, (2) a customer service agent for a SaaS company, (3) a legal document summarizer. Test each for edge cases — what happens when users try to break the persona?"
+},
+{
+  phase:1, week:3, weekTitle:"Prompt Engineering Mastery",
+  day:19, title:"Advanced Prompting: Self-Consistency & Structured Output",
+  duration:"4–5 hrs", tags:["Self-Consistency","JSON","Structured Output"],
+  why:"Production AI systems need reliable, structured outputs — not free-form text. Getting LLMs to consistently return valid JSON is a critical engineering challenge solved by structured output prompting. Self-consistency sampling improves accuracy for uncertain tasks by running multiple samples and majority-voting.",
+  concepts:["Self-consistency: sample the same prompt 5+ times, take the majority answer — improves accuracy 5–10%","Structured output prompting: explicitly request JSON, provide the schema in the prompt","JSON mode: OpenAI and Anthropic both have 'json_mode' — forces valid JSON output","Output parsers: cleaning and validating LLM outputs before using them downstream","Markdown format control: when you want code blocks, headers, or lists in responses"],
+  tools:["openai (response_format=json_object)","anthropic"],
+  practice:"Build a Python function that extracts structured data from unstructured text (e.g., extract name, company, role from a bio paragraph). Return it as a Pydantic model. Handle the case where the model returns invalid JSON gracefully."
+},
+{
+  phase:1, week:3, weekTitle:"Prompt Engineering Mastery",
+  day:20, title:"Prompt Templates with Jinja2 & LangChain",
+  duration:"3–4 hrs", tags:["Prompt Templates","Jinja2","Dynamic Prompts"],
+  why:"In real applications, prompts are templates with dynamic variables — the user's name, their documents, the current date. f-strings work for simple cases, but Jinja2 and structured template systems handle complex conditional logic. This is the bridge between raw prompts and production-ready prompt management.",
+  concepts:["f-strings: fine for simple variable substitution in prompts","Jinja2 templates: for complex prompts with conditionals, loops, and macros","Template variables: separating prompt logic from prompt content","Prompt chaining: output of one prompt becomes input to the next","Prompt versioning: treating prompts like code — Git tracking, changelogs, rollback capability"],
+  tools:["jinja2","langchain (PromptTemplate, ChatPromptTemplate)"],
+  practice:"Create a flexible prompt template system for a blog post generator. The template should accept: topic, audience, tone, word_count, and optional sections. Use Jinja2 to conditionally include SEO instructions if requested."
+},
+{
+  phase:1, week:3, weekTitle:"Prompt Engineering Mastery",
+  day:21, title:"Prompt Engineering Best Practices & Anti-Patterns",
+  duration:"3–4 hrs", tags:["Best Practices","Anti-patterns","Prompt Design"],
+  why:"Experienced prompt engineers have learned (painfully) what works and what doesn't. Studying common failure modes saves you weeks of trial and error. Anti-patterns like 'sycophancy' (AI agrees with you even when you're wrong) can silently poison your AI applications.",
+  concepts:["Be specific, not vague: 'Write a 200-word product description for...' beats 'Write about this product'","Positive framing: 'Always cite sources' beats 'Don't make things up'","Avoiding sycophancy: use 'Be direct and correct me if I'm wrong' to counteract agreement bias","Prompt injection: when user input contains instructions that override your system prompt — a security risk","Hallucination reduction: ground the model in facts ('Only use information from the provided context')"],
+  tools:[],
+  practice:"Audit the prompts you've written this week against the best practices checklist. Rewrite your worst prompt. Test a prompt injection attack on your Day 18 chatbot — does it hold up? Add protections."
+},
+
+// ─── PHASE 1, WEEK 4 ─────────────────────────────────────────────
+{
+  phase:1, week:4, weekTitle:"Python Ecosystem & Building Your First App",
+  day:22, title:"Pydantic for Structured Data & Outputs",
+  duration:"4–5 hrs", tags:["Pydantic","Structured Output","Data Validation"],
+  why:"Pydantic is the most important Python library in AI engineering. Every major AI framework (LangChain, LlamaIndex, FastAPI) uses it under the hood. It validates that LLM outputs match a schema, converts between types automatically, and makes your code self-documenting. The 'instructor' library layers Pydantic on top of any LLM API.",
+  concepts:["Pydantic BaseModel: define data schemas with Python type hints, get validation for free","Field validation: ensure LLM outputs are the right type, length, or format before using them","instructor library: wraps OpenAI/Anthropic API to automatically return validated Pydantic models","Structured extraction: turn unstructured text into typed Python objects reliably","Error recovery: instructor can automatically retry when the model returns invalid data"],
+  tools:["pydantic","instructor"],
+  practice:"Use instructor to extract structured information from 10 unstructured product reviews: sentiment (enum), rating (1-5 int), pros (list[str]), cons (list[str]), summary (str, max 100 chars). Pydantic validates everything automatically."
+},
+{
+  phase:1, week:4, weekTitle:"Python Ecosystem & Building Your First App",
+  day:23, title:"Tiktoken & Token Management",
+  duration:"2–3 hrs", tags:["tiktoken","Tokens","Cost Management"],
+  why:"Tokens are the currency of LLMs — they determine both cost and context limit. Tiktoken is OpenAI's tokenizer library. Knowing how to count tokens before sending a request lets you: split documents to fit context windows, estimate costs accurately, and avoid 'context length exceeded' errors that crash your app.",
+  concepts:["tiktoken.encoding_for_model(): get the right tokenizer for each model","encode() vs decode(): convert between text and token IDs bidirectionally","Token counting function: build a reusable count_tokens(text, model) helper","Context window management: if input > max_context, you must chunk or summarize","Cost estimation: (input_tokens × input_price + output_tokens × output_price) = API cost"],
+  tools:["tiktoken"],
+  practice:"Write a token_manager.py module with: count_tokens(), estimate_cost(), split_to_fit_context(), and truncate_to_token_limit(). Test it on a 50-page PDF's worth of text."
+},
+{
+  phase:1, week:4, weekTitle:"Python Ecosystem & Building Your First App",
+  day:24, title:"Streamlit — Building AI UIs with Pure Python",
+  duration:"5–6 hrs", tags:["Streamlit","UI","Demo"],
+  why:"Streamlit lets you build interactive AI web apps in pure Python — no JavaScript required. It's the fastest way to turn an AI script into a shareable app. Every data scientist and AI engineer needs to know it for demos, internal tools, and prototypes. It's how you show your work to non-technical stakeholders.",
+  concepts:["Core components: st.write(), st.text_input(), st.button(), st.slider(), st.selectbox()","Session state: st.session_state persists data between user interactions (critical for chat history)","Layout: st.columns(), st.sidebar(), st.expander() for organizing complex UIs","File upload: st.file_uploader() — essential for document processing apps","Secrets management: Streamlit's built-in secrets system replaces .env files in deployment"],
+  tools:["streamlit"],
+  practice:"Build a 'Prompt Lab' Streamlit app with: a system prompt editor, model selector (GPT-4o / Claude / Gemini), temperature slider, a chat input, and the response displayed with streaming. Add a sidebar showing estimated cost."
+},
+{
+  phase:1, week:4, weekTitle:"Python Ecosystem & Building Your First App",
+  day:25, title:"Building a Multi-turn Chatbot with Streamlit",
+  duration:"5–6 hrs", tags:["Chatbot","Streamlit","Session State","Streaming"],
+  why:"This is your first complete AI product. A chatbot might sound simple, but building it correctly — with proper conversation history, streaming, and error handling — teaches you every foundational pattern used in production AI applications. Many companies still pay consultants to build exactly this.",
+  concepts:["Chat UI: st.chat_message() and st.chat_input() — Streamlit's purpose-built chat components","Message history management: storing and passing the full conversation in session_state","Streaming responses: using stream=True and iterating over chunks for real-time display","Token budget management: trimming old messages when conversation gets too long","Multi-model support: letting users switch models mid-conversation"],
+  tools:["streamlit","openai","anthropic"],
+  practice:"Build a production-quality chatbot with: multi-model support, streaming, conversation export (download as .txt), a token counter in the sidebar, and a 'clear conversation' button. Deploy it to Streamlit Community Cloud (free)."
+},
+{
+  phase:1, week:4, weekTitle:"Python Ecosystem & Building Your First App",
+  day:26, title:"FastAPI — Building AI Backends",
+  duration:"5–6 hrs", tags:["FastAPI","API","Backend","async"],
+  why:"Production AI apps don't just live in Streamlit — they need proper REST APIs that mobile apps, web frontends, and other services can call. FastAPI is the industry standard for Python API development: it's fast, type-safe (thanks to Pydantic), and async-ready for handling concurrent LLM requests.",
+  concepts:["FastAPI basics: @app.post(), request/response models with Pydantic, automatic API docs","Async endpoints: async def + await for non-blocking LLM calls — critical for handling multiple users","Streaming responses with StreamingResponse: push tokens to the frontend as they arrive","CORS middleware: required if your React/Vue frontend is on a different domain","Background tasks: run heavy processing without blocking the response"],
+  tools:["fastapi","uvicorn","pydantic"],
+  practice:"Build a FastAPI backend with: POST /chat (streaming), POST /generate (non-streaming), GET /models (list available models), and proper error responses. Test with the auto-generated Swagger UI at /docs."
+},
+{
+  phase:1, week:4, weekTitle:"Python Ecosystem & Building Your First App",
+  day:27, title:"Gradio & AI Demos",
+  duration:"3–4 hrs", tags:["Gradio","Demo","Hugging Face Spaces"],
+  why:"Gradio is hugely popular in the AI research community. Most Hugging Face model demos are built with it. It's often faster than Streamlit for specific demo types (especially file-in, text-out flows) and deploys instantly to Hugging Face Spaces for free. Every AI engineer should know both Streamlit and Gradio.",
+  concepts:["gr.Interface: the simplest Gradio pattern — define inputs, outputs, and a function","gr.ChatInterface: purpose-built for chatbots with automatic history management","gr.Blocks: for complex multi-component layouts with custom logic","Components: Textbox, Image, File, Audio, Dropdown — covers most AI app use cases","Hugging Face Spaces: one-click deployment of Gradio apps — instant public URL"],
+  tools:["gradio"],
+  practice:"Rebuild your chatbot from Day 25 in Gradio using gr.ChatInterface. Add a model selector dropdown and a system prompt text area. Deploy to Hugging Face Spaces and share the link."
+},
+{
+  phase:1, week:4, weekTitle:"Python Ecosystem & Building Your First App",
+  day:28, title:"Logging, Debugging & Monitoring AI Apps",
+  duration:"3–4 hrs", tags:["Logging","Debugging","loguru","Monitoring"],
+  why:"AI apps fail in unexpected ways — prompts hallucinate, API keys expire, rate limits hit at 3am. Without proper logging, debugging production issues is guesswork. Professional engineers log every LLM call (input, output, latency, cost) from day one. This data also becomes invaluable for later optimization.",
+  concepts:["loguru: a better logging library than Python's built-in logging — easier and prettier","Structured logging: log as JSON so you can query and analyze logs later","What to log for every LLM call: timestamp, model, prompt, response, latency, tokens, cost","Sentry: error tracking that catches exceptions and sends you alerts — free tier is generous","Python's rich library: beautiful console output for development debugging"],
+  tools:["loguru","rich","sentry-sdk"],
+  practice:"Add comprehensive logging to your chatbot from Day 25. Every API call should log: model name, token counts, response time, estimated cost, and the full prompt/response pair. Set up Sentry to catch API errors."
+},
+{
+  phase:1, week:4, weekTitle:"Python Ecosystem & Building Your First App",
+  day:29, title:"Environment Variables, Config Management & .env Patterns",
+  duration:"2–3 hrs", tags:["Config","Security","Environment","dotenv"],
+  why:"Production AI apps have dozens of configuration values: API keys, model names, temperature settings, feature flags. Hardcoding these is how keys get leaked to GitHub. Professional config management using Pydantic Settings makes your app configurable without code changes — essential for deployment.",
+  concepts:["Pydantic Settings: a class that automatically reads from environment variables — cleaner than dotenv alone","Multiple environments: .env.local, .env.staging, .env.production — different configs per environment","Secret rotation: how to update API keys in production without downtime","Configuration validation: Pydantic validates that required keys exist at startup, failing fast","12-factor app principles: the industry standard for configuring production applications"],
+  tools:["pydantic-settings","python-dotenv"],
+  practice:"Refactor your chatbot project to use pydantic-settings. Create a Settings class with: openai_api_key, anthropic_api_key, default_model, temperature, max_tokens, and log_level. Make the app configurable entirely through environment variables."
+},
+{
+  phase:1, week:4, weekTitle:"Python Ecosystem & Building Your First App",
+  day:30, title:"Phase 1 Capstone — Personal AI Assistant",
+  duration:"8–10 hrs", tags:["Project","Capstone","Full Stack"],
+  why:"You've spent 29 days learning. Now you build. Real learning happens through struggle and creation, not consumption. This project consolidates every skill from Phase 1 into a real application that demonstrates your competence. It also becomes your first portfolio piece.",
+  concepts:["Project architecture: clear separation of API client, business logic, and UI layers","Multi-provider support: seamlessly switch between OpenAI, Claude, and Ollama","Conversation history: properly managed across sessions with export capability","System prompt customization: users can define their assistant's persona","Cost tracking dashboard: real-time spend monitoring in the sidebar"],
+  tools:["streamlit","fastapi","openai","anthropic","loguru","pydantic"],
+  practice:"Build a complete Personal AI Assistant with: multi-LLM support, customizable system prompts, streaming, conversation history, cost tracking, dark/light mode, and a settings panel. Host on Streamlit Cloud. Document it as a README on GitHub. This is your first portfolio project."
+},
+
+// ═══════════════════════════════════════════════════════════════════
+// PHASE 2 · INTERMEDIATE · DAYS 31–60
+// ═══════════════════════════════════════════════════════════════════
+{
+  phase:2, week:5, weekTitle:"Embeddings & Vector Databases",
+  day:31, title:"What Are Embeddings?",
+  duration:"4–5 hrs", tags:["Embeddings","Semantics","Theory"],
+  why:"Embeddings are the bridge between text and mathematics. They transform words and sentences into lists of numbers (vectors) where similar meanings end up close together. Embeddings power semantic search, RAG systems, recommendation engines, and duplicate detection. This concept is used in virtually every advanced AI application you'll build.",
+  concepts:["Word2Vec intuition: 'king' − 'man' + 'woman' ≈ 'queen' — meaning encoded in math","Modern sentence embeddings: a whole sentence → a 1536-dimensional vector representing its meaning","Semantic similarity: similar sentences have vectors that point in the same direction","Embedding space: a high-dimensional space where meaning becomes geometry","Embedding models: text-embedding-3-small (OpenAI), embed-english-v3.0 (Cohere), all-MiniLM-L6-v2 (free)"],
+  tools:["openai (embeddings API)","numpy","matplotlib","scikit-learn"],
+  practice:"Embed 20 sentences on different topics. Use PCA to reduce to 2D and plot them. Observe how semantically similar sentences cluster together. Calculate cosine similarity between 5 pairs of sentences manually."
+},
+{
+  phase:2, week:5, weekTitle:"Embeddings & Vector Databases",
+  day:32, title:"Creating & Comparing Embeddings",
+  duration:"3–4 hrs", tags:["OpenAI Embeddings","Cohere","sentence-transformers"],
+  why:"You need hands-on comfort with the embedding APIs before building RAG. Different models produce embeddings of different dimensions and quality — text-embedding-3-large is more accurate but 6x more expensive than text-embedding-3-small. For many tasks, free local models (sentence-transformers) are good enough.",
+  concepts:["OpenAI Embeddings API: client.embeddings.create(model='text-embedding-3-small', input=text)","Dimensions parameter: you can reduce text-embedding-3-large to 256 dims to save cost (Matryoshka embeddings)","sentence-transformers: free, local embedding models. all-MiniLM-L6-v2 is tiny and fast","Batch embedding: always embed multiple texts in one API call — far more efficient","Normalization: embeddings should be L2-normalized before computing cosine similarity"],
+  tools:["openai","sentence-transformers","numpy"],
+  practice:"Build a semantic search function that: (1) embeds a collection of 100 sentences, (2) embeds a query, (3) returns the top 5 most similar sentences using cosine similarity. Test with sentence-transformers (free) vs OpenAI embeddings — compare quality."
+},
+{
+  phase:2, week:5, weekTitle:"Embeddings & Vector Databases",
+  day:33, title:"Vector Similarity & ANN Algorithms",
+  duration:"3–4 hrs", tags:["Cosine Similarity","HNSW","ANN","Math"],
+  why:"When you have millions of embeddings, computing cosine similarity against all of them takes seconds per query — too slow. Approximate Nearest Neighbor (ANN) algorithms like HNSW find the 99%-similar result in milliseconds. Understanding this is crucial for building scalable RAG systems.",
+  concepts:["Cosine similarity: measures angle between vectors (0 = perpendicular, 1 = identical direction)","Dot product: cosine similarity for normalized vectors — used in most production systems","Euclidean distance (L2): raw distance in vector space — worse than cosine for text","HNSW algorithm: hierarchical graph structure that finds nearest neighbors in O(log n)","FAISS: Facebook's library. IVF index for millions of vectors, Flat index for exact search"],
+  tools:["faiss-cpu","numpy","scikit-learn"],
+  practice:"Build a FAISS index for 10,000 embeddings. Benchmark exact search vs HNSW approximate search: measure speed and recall@10. Understand when the approximation trade-off is worth it."
+},
+{
+  phase:2, week:5, weekTitle:"Embeddings & Vector Databases",
+  day:34, title:"ChromaDB — The Developer's Vector Database",
+  duration:"4–5 hrs", tags:["ChromaDB","Vector Database","Local"],
+  why:"ChromaDB is the go-to vector database for development and small-to-medium production apps. Zero setup — it runs in-memory or as a file. Its Python API is clean and intuitive. You'll use ChromaDB in most of your Phase 2 and 3 projects before graduating to cloud databases.",
+  concepts:["Collection: a named group of vectors (like a table in SQL) with associated metadata","add(): store vectors with documents, embeddings (or let Chroma compute them), and metadata","query(): find the n most similar vectors to a query — returns documents and distances","Filtering: query with metadata filters ('date > 2024', 'author == Jones') — narrows results","Persistence: chromadb.PersistentClient() saves to disk so data survives restarts"],
+  tools:["chromadb"],
+  practice:"Build a document search system using ChromaDB: (1) ingest 50 Wikipedia paragraphs, (2) store with metadata (title, date, category), (3) query by semantic similarity, (4) filter by category. Save to disk and verify persistence across restarts."
+},
+{
+  phase:2, week:5, weekTitle:"Embeddings & Vector Databases",
+  day:35, title:"Pinecone — Cloud Vector Database for Production",
+  duration:"4–5 hrs", tags:["Pinecone","Cloud","Production","Vector DB"],
+  why:"ChromaDB is great for development, but production applications serving thousands of users need a managed, scalable solution. Pinecone is the most popular cloud vector database — it scales to billions of vectors, handles concurrent requests, and requires zero infrastructure management.",
+  concepts:["Pinecone Index: your vector database, defined by dimension and similarity metric","Upsert: insert or update vectors with unique IDs and metadata — idempotent operation","Query: find top-k similar vectors. Can filter by metadata first, then do similarity search","Namespaces: logical partitions within an index (e.g., one namespace per user or tenant)","Serverless vs Pod-based: serverless is pay-per-use (great for prototypes), pod-based for consistent high traffic"],
+  tools:["pinecone"],
+  practice:"Create a Pinecone serverless index. Migrate your ChromaDB documents from Day 34. Implement a search API endpoint (FastAPI) backed by Pinecone. Test concurrent search queries and measure latency."
+},
+{
+  phase:2, week:5, weekTitle:"Embeddings & Vector Databases",
+  day:36, title:"Weaviate, Qdrant & Other Vector DBs",
+  duration:"3–4 hrs", tags:["Weaviate","Qdrant","Vector DB Comparison"],
+  why:"Pinecone isn't the only option. Qdrant is open-source and self-hostable (great for data sovereignty). Weaviate has built-in hybrid search (combining keyword + semantic). Knowing the landscape helps you recommend the right tool for each client or project.",
+  concepts:["Qdrant: open-source, Rust-based, can be self-hosted or use Qdrant Cloud. Excellent filtering","Weaviate: supports hybrid search (BM25 keyword + vector) out of the box — important for many RAG use cases","pgvector: PostgreSQL extension for vector storage — if you're already on Postgres, this is appealing","Milvus: high-performance, designed for billions of vectors at enterprise scale","Decision framework: self-hosted vs managed, scale, filtering complexity, budget"],
+  tools:["qdrant-client","weaviate-client"],
+  practice:"Implement your Day 34 document search with Qdrant. Run Qdrant locally with Docker. Compare the query API vs Pinecone's. Document your findings in a 'vector database comparison sheet'."
+},
+{
+  phase:2, week:5, weekTitle:"Embeddings & Vector Databases",
+  day:37, title:"FAISS for High-Performance Local Search",
+  duration:"3–4 hrs", tags:["FAISS","Performance","Indexing"],
+  why:"FAISS (Facebook AI Similarity Search) is the workhorse of high-performance local vector search. Many open-source RAG implementations (including LangChain's FAISS integration) use it under the hood. Understanding FAISS indexes helps you optimize retrieval speed and memory usage for large document sets.",
+  concepts:["IndexFlatL2: exact search, O(n). Use for <100K vectors or when accuracy is critical","IndexIVFFlat: clusters vectors, searches subset. 10-100x faster for large datasets with small accuracy loss","IndexHNSWFlat: graph-based, very fast queries, higher memory. Best all-around for most use cases","GPU FAISS: 10-100x faster on GPU for massive datasets (faiss-gpu)","Saving/loading: faiss.write_index() / faiss.read_index() — persist your index to disk"],
+  tools:["faiss-cpu"],
+  practice:"Index 100,000 embeddings in FAISS. Benchmark IndexFlat vs IndexIVF vs IndexHNSW on query speed and recall. Save and reload the index. Wrap it in a simple class with add(), search(), save(), load() methods."
+},
+
+// ─── PHASE 2, WEEK 6 ─────────────────────────────────────────────
+{
+  phase:2, week:6, weekTitle:"RAG — Retrieval Augmented Generation",
+  day:38, title:"What Is RAG & Why It Matters",
+  duration:"4–5 hrs", tags:["RAG","Architecture","Hallucination","Grounding"],
+  why:"RAG is the most important AI engineering pattern of the past 2 years. It solves the #1 problem with LLMs: hallucination. LLMs don't know your company's documents, your database, or today's news. RAG retrieves relevant information and 'shows' it to the LLM, grounding its response in facts. Almost every enterprise AI system uses some form of RAG.",
+  concepts:["The hallucination problem: LLMs confidently make up facts when they don't know the answer","RAG solution: Retrieve relevant context → Augment the prompt with it → Generate grounded answer","RAG vs fine-tuning: RAG adds knowledge at query time (flexible, updatable). Fine-tuning bakes knowledge in (expensive, static)","RAG vs long context: RAG retrieves the most relevant 5 chunks. Long context stuffs everything in — often worse and expensive","Two phases: Indexing (one-time, process documents) and Retrieval+Generation (per-query)"],
+  tools:[],
+  practice:"Draw (by hand or in a diagramming tool) the complete RAG architecture with every component labeled. Write a 1-page explanation of RAG as if explaining to a non-technical manager. This conceptual clarity will guide all implementation work."
+},
+{
+  phase:2, week:6, weekTitle:"RAG — Retrieval Augmented Generation",
+  day:39, title:"RAG Indexing Pipeline — Document Loading & Chunking",
+  duration:"5–6 hrs", tags:["Document Loading","Text Splitting","Chunking"],
+  why:"Document chunking is the most underrated RAG skill. Split too coarsely and the retrieved chunk has too much irrelevant context. Split too finely and you lose coherent context. The right chunking strategy for a legal document is completely different from the right strategy for a codebase. Bad chunking = bad RAG.",
+  concepts:["Document loaders: PyPDF, python-docx, unstructured (handles 30+ file formats)","Fixed-size chunking: split every N characters with M overlap — simple but often poor quality","Recursive character splitting: splits by paragraph → sentence → word — preserves natural boundaries","Semantic chunking: use embeddings to split at meaning boundaries — most sophisticated, most accurate","Chunk metadata: always attach source, page number, section title to every chunk for attribution"],
+  tools:["pypdf","python-docx","unstructured","langchain (RecursiveCharacterTextSplitter)"],
+  practice:"Process the same 50-page PDF with three chunking strategies: fixed-size (1000 chars), recursive character (1000 chars, 200 overlap), and semantic. Compare retrieval quality by testing 10 questions. Which chunking gives the most relevant retrieved chunks?"
+},
+{
+  phase:2, week:6, weekTitle:"RAG — Retrieval Augmented Generation",
+  day:40, title:"RAG Retrieval & Generation Pipeline",
+  duration:"5–6 hrs", tags:["RAG","Retrieval","Generation","Pipeline"],
+  why:"The retrieval step is where most RAG systems fail. If you retrieve the wrong chunks, the best LLM in the world will give a wrong answer. Top-k selection, the RAG prompt template, and citation formatting are all critical engineering decisions that separate good RAG from great RAG.",
+  concepts:["Similarity search: embed the query, retrieve top-k chunks, pass to LLM with their context","Top-k selection: k=3 for simple Q&A, k=8–15 for complex research queries. More isn't always better","RAG prompt template: 'Use the following context to answer the question. If unsure, say so. Context: {context}'","Citation and attribution: return source document names and page numbers for trust","MMR (Maximal Marginal Relevance): retrieve diverse chunks to avoid returning 5 near-identical passages"],
+  tools:["chromadb","openai","anthropic"],
+  practice:"Build a complete RAG pipeline from scratch (no frameworks): load PDF → chunk → embed → store in ChromaDB → retrieve → generate. Answer 20 questions. Evaluate: how often is the answer correct? How often is the retrieved chunk relevant?"
+},
+{
+  phase:2, week:6, weekTitle:"RAG — Retrieval Augmented Generation",
+  day:41, title:"Advanced RAG — HyDE & Query Expansion",
+  duration:"4–5 hrs", tags:["HyDE","Query Expansion","Advanced RAG","Re-ranking"],
+  why:"Basic RAG fails when user queries are short or vague ('summarize the policy on leave'). Advanced techniques like HyDE (generate a hypothetical answer to search with) and query expansion (generate multiple versions of the query) dramatically improve retrieval recall. Re-ranking ensures the most relevant chunks surface first.",
+  concepts:["HyDE: Hypothetical Document Embedding — generate a fake answer, embed it, search with that. Bridges query-doc mismatch","Multi-query retrieval: generate 3 different versions of the query, retrieve for all, deduplicate — improves recall","Contextual compression: compress retrieved chunks to only the relevant sentences — reduces noise","Cross-encoder re-ranking: use a separate model (sentence-transformers) to re-rank retrieved chunks by relevance","Step-back prompting: ask a more general question first to retrieve background knowledge"],
+  tools:["sentence-transformers (cross-encoder)","langchain (MultiQueryRetriever, HyDERetriever)"],
+  practice:"Implement HyDE for your Day 40 RAG system. Compare retrieval recall with and without HyDE on 20 ambiguous queries. Add cross-encoder re-ranking. Measure the improvement in answer quality."
+},
+{
+  phase:2, week:6, weekTitle:"RAG — Retrieval Augmented Generation",
+  day:42, title:"Hybrid Search — Combining Semantic & Keyword",
+  duration:"4–5 hrs", tags:["Hybrid Search","BM25","Retrieval"],
+  why:"Pure semantic search misses exact keyword matches ('What does regulation 14B-3 say?'). Pure BM25 keyword search misses conceptual relevance ('What are the rules about company vehicles?'). Hybrid search combines both: you get exact match AND semantic understanding. Most production RAG systems use hybrid search.",
+  concepts:["BM25: traditional keyword-based retrieval (TF-IDF variant). Fast, exact, no GPU needed","Reciprocal Rank Fusion (RRF): combine rankings from BM25 and semantic search into a single ranked list","BM25 + vector search: retrieve candidates with both, merge and re-rank","Sparse embeddings (SPLADE): learned sparse vectors that blend keyword and semantic properties","When to use hybrid: technical documents with specific jargon, legal text, regulatory compliance"],
+  tools:["rank_bm25","langchain","qdrant (has built-in hybrid search)"],
+  practice:"Implement hybrid search: run BM25 and semantic search separately, combine with RRF. Compare pure semantic vs hybrid on 20 questions involving specific product names, regulation IDs, and technical terms."
+},
+{
+  phase:2, week:6, weekTitle:"RAG — Retrieval Augmented Generation",
+  day:43, title:"RAG Evaluation with RAGAS",
+  duration:"4–5 hrs", tags:["RAGAS","Evaluation","Metrics","Quality"],
+  why:"How do you know if your RAG is actually good? Without systematic evaluation, you're guessing. RAGAS (RAG Assessment) is the standard framework that measures: Is the answer faithful to the retrieved context? Is the context relevant to the question? Was the question answered completely? These metrics catch regressions when you change your RAG pipeline.",
+  concepts:["Faithfulness: is every claim in the answer supported by the retrieved context? (Hallucination check)","Answer Relevance: does the answer actually address the question asked?","Context Precision: what fraction of the retrieved chunks are actually relevant?","Context Recall: were all the relevant document chunks retrieved? (Completeness)","Building a test set: 50+ question-answer pairs over your document corpus — the most important investment"],
+  tools:["ragas","datasets"],
+  practice:"Create a 50-question evaluation dataset for a document you care about. Run your Day 40 RAG system through RAGAS. Identify the weakest metric. Make one targeted improvement (e.g., better chunking for context recall, better prompt for faithfulness) and re-evaluate."
+},
+{
+  phase:2, week:6, weekTitle:"RAG — Retrieval Augmented Generation",
+  day:44, title:"Mini Project — Document Q&A System",
+  duration:"8–10 hrs", tags:["Project","RAG","Full Stack"],
+  why:"Applying 7 days of RAG knowledge into one coherent, working product. A document Q&A system is one of the most requested AI applications — companies pay consultants $50,000+ to build these for their internal knowledge bases. Building it yourself proves competence and creates portfolio material.",
+  concepts:["Full RAG pipeline with proper chunking, embedding, retrieval, and generation","File upload: support PDF, DOCX, and TXT files via Streamlit's uploader","Source attribution: display which document chunk the answer came from (with page number)","Confidence filtering: if retrieved similarity is low, say 'I don't have enough information'","Evaluation dashboard: show RAGAS scores for every answer"],
+  tools:["streamlit","chromadb","openai","pypdf","ragas"],
+  practice:"Build a full document Q&A app: multiple file upload, automatic indexing, semantic search, cited answers, and a RAGAS evaluation mode. This is your second portfolio project."
+},
+
+// ─── PHASE 2, WEEK 7 ─────────────────────────────────────────────
+{
+  phase:2, week:7, weekTitle:"LangChain — The AI Framework",
+  day:45, title:"What Is LangChain & Why Use It?",
+  duration:"4–5 hrs", tags:["LangChain","Framework","Philosophy"],
+  why:"LangChain is the most popular framework for building LLM applications. It standardizes how you connect LLMs, prompts, memory, tools, and data sources. Without LangChain, you write hundreds of lines of boilerplate for every project. With it, you compose applications from reusable components. It also integrates with 100+ vector databases, LLM providers, and tools out of the box.",
+  concepts:["LangChain philosophy: everything is a Runnable — composable, streamable, batchable","Core components: ChatModels, PromptTemplates, Output Parsers, Retrievers, Memory, Tools, Chains","The community ecosystem: langchain-openai, langchain-anthropic, langchain-community (integrations)","When NOT to use LangChain: simple single-LLM apps, when you need fine-grained control, latency-sensitive code","LangChain Expression Language (LCEL): the modern way to write LangChain — cleaner and more powerful"],
+  tools:["langchain","langchain-openai","langchain-anthropic","langchain-community"],
+  practice:"Install LangChain and its provider packages. Replicate your Day 8 chatbot using LangChain's ChatOpenAI and ChatPromptTemplate. Note what LangChain abstracts away vs what you lose control of."
+},
+{
+  phase:2, week:7, weekTitle:"LangChain — The AI Framework",
+  day:46, title:"LangChain Expression Language (LCEL) Deep Dive",
+  duration:"5–6 hrs", tags:["LCEL","Chains","Runnable","LangChain"],
+  why:"LCEL is the modern way to write LangChain. The pipe operator (|) chains Runnables together: prompt | model | parser. This makes code readable, enables streaming by default, supports batch processing, and allows easy component swapping. Understanding LCEL is essential for everything advanced in LangChain.",
+  concepts:["The Runnable protocol: .invoke(), .stream(), .batch() — every component supports these","Pipe operator (|): prompt | model | parser — left output becomes right input","RunnableParallel: run multiple chains in parallel and merge results","RunnablePassthrough: pass inputs through unchanged — used in RAG chains to pass context alongside query","Bind: attach kwargs to any Runnable — use to set temperature or stop sequences mid-chain"],
+  tools:["langchain"],
+  practice:"Build these LCEL chains: (1) a simple Q&A chain (prompt | model | StrOutputParser), (2) a RAG chain using RunnableParallel to retrieve context and pass the question, (3) a chain that runs three different prompts in parallel. Enable streaming for all."
+},
+{
+  phase:2, week:7, weekTitle:"LangChain — The AI Framework",
+  day:47, title:"LangChain Memory Systems",
+  duration:"4–5 hrs", tags:["Memory","LangChain","Conversation History"],
+  why:"LLMs have no memory between calls. LangChain's memory modules solve this, but each type makes different trade-offs. Buffer memory is unlimited but expensive. Summary memory is cheap but loses detail. Knowledge graph memory is sophisticated but complex. Choosing the right memory for your use case matters enormously.",
+  concepts:["ConversationBufferMemory: stores full conversation history — simplest, gets expensive for long chats","ConversationBufferWindowMemory: only keeps last k exchanges — caps cost","ConversationSummaryMemory: summarizes old messages with an LLM — preserves key info, cheap","ConversationKGMemory: extracts entities and relationships from conversation — for personalization","RunnableWithMessageHistory: LCEL-native way to add memory to any chain — the modern approach"],
+  tools:["langchain"],
+  practice:"Build a customer service chatbot that remembers: the user's name, their problem, and what solutions were tried. Use ConversationSummaryBufferMemory to keep cost low for long conversations. Test with a 30+ turn conversation."
+},
+{
+  phase:2, week:7, weekTitle:"LangChain — The AI Framework",
+  day:48, title:"LangChain Document Loaders & Text Splitters",
+  duration:"4–5 hrs", tags:["Document Loaders","Text Splitting","LangChain"],
+  why:"LangChain's document processing ecosystem is one of its greatest strengths — 50+ built-in loaders for every file format you'll encounter. Using LangChain's battle-tested splitters instead of custom regex saves hours and avoids edge cases you didn't know existed.",
+  concepts:["TextLoader, PyPDFLoader, Docx2txtLoader, UnstructuredEmailLoader — pick the right one","WebBaseLoader: scrape any webpage into a Document — combine with BeautifulSoup for complex pages","RecursiveCharacterTextSplitter: the best general-purpose splitter — tries paragraphs, then sentences, then words","SemanticChunker: uses embeddings to split at meaning boundaries — highest quality, highest cost","Document metadata: every chunk automatically carries page_content and metadata dict"],
+  tools:["langchain","langchain-community","pypdf","unstructured"],
+  practice:"Build a document processor that: accepts PDFs, Word docs, URLs, and plain text, chunks appropriately using RecursiveCharacterTextSplitter, attaches rich metadata, and outputs ready-to-embed Documents. Test with 5 different file types."
+},
+{
+  phase:2, week:7, weekTitle:"LangChain — The AI Framework",
+  day:49, title:"LangChain Vector Stores & Retrievers",
+  duration:"4–5 hrs", tags:["Vector Stores","Retrievers","LangChain","RAG"],
+  why:"LangChain wraps every major vector database with a consistent interface. Switch from ChromaDB to Pinecone with a single line change. Retrievers extend vector stores with additional logic: score thresholding, multi-query, contextual compression, and ensemble retrieval. This abstraction is invaluable for production systems.",
+  concepts:["VectorStore interface: .add_documents(), .similarity_search(), .as_retriever()","Retrievers vs VectorStores: retrievers have more retrieval strategies but only support .get_relevant_documents()","ScoreThresholdRetriever: only return chunks above a similarity threshold — prevents low-quality retrieval","EnsembleRetriever: combine BM25 and vector retrieval with configurable weights","Self-query retriever: LLM converts natural language query into structured metadata filters + semantic query"],
+  tools:["langchain","langchain-chroma","langchain-pinecone"],
+  practice:"Build a RAG system using LangChain that swaps retrievers without changing the rest of the chain. Test: basic similarity search → score threshold → multi-query → ensemble. Measure quality improvement at each step."
+},
+{
+  phase:2, week:7, weekTitle:"LangChain — The AI Framework",
+  day:50, title:"LangChain Tools & Custom Tools",
+  duration:"4–5 hrs", tags:["Tools","LangChain","Custom Tools"],
+  why:"Tools are what transform LLMs from passive text generators into active agents. A tool is any function an LLM can decide to call. LangChain has 50+ built-in tools (web search, calculator, Python REPL, Wikipedia) and makes building custom tools — to call your APIs, query your databases — trivially easy.",
+  concepts:["@tool decorator: wrap any Python function as an LLM-callable tool with one decorator","Tool docstrings matter: the tool description is what the LLM reads to decide when to use it — write clearly","Built-in tools: TavilySearch (web search), DuckDuckGo, WikipediaQueryRun, PythonREPLTool","Toolkit: a group of related tools (e.g., GitHub toolkit, Jira toolkit) for domain-specific agents","Async tools: define async def for tools that make API calls — prevents blocking your agent"],
+  tools:["langchain","langchain-community","tavily-python"],
+  practice:"Build 3 custom tools: (1) a tool that fetches current weather via an API, (2) a tool that searches your ChromaDB knowledge base, (3) a tool that runs Python code and returns output. Write clear descriptions for each."
+},
+{
+  phase:2, week:7, weekTitle:"LangChain — The AI Framework",
+  day:51, title:"LangChain Agents",
+  duration:"5–6 hrs", tags:["Agents","LangChain","AgentExecutor","ReAct"],
+  why:"LangChain's agent abstractions let you build working agents in minutes. AgentExecutor manages the Thought-Action-Observation loop automatically. But understanding how it works under the hood is critical for debugging — agents fail in confusing ways when tool descriptions are bad or the system prompt is wrong.",
+  concepts:["create_tool_calling_agent: modern approach using LLM's native tool calling — most reliable","AgentExecutor: runs the agent loop. max_iterations prevents infinite loops. verbose=True for debugging","AgentAction and AgentFinish: the two possible returns from an agent step","Structured chat agent: parses tool calls from a specific JSON format — for models without native tool calling","Debugging: verbose=True shows every thought and action. Essential for understanding failures"],
+  tools:["langchain","langchain-openai"],
+  practice:"Build an agent with: web search, calculator, and your knowledge base (ChromaDB) as tools. Test with: 'What is the current weather in Mumbai and how does it compare to last week's average based on our data?' Trace the full Thought-Action-Observation loop."
+},
+{
+  phase:2, week:7, weekTitle:"LangChain — The AI Framework",
+  day:52, title:"Full RAG App with LangChain",
+  duration:"8–10 hrs", tags:["Project","RAG","LangChain","Full Stack"],
+  why:"Integrating everything from the past two weeks — document processing, vector stores, retrievers, memory, and the LCEL composition model — into a polished, production-quality RAG application. This is what a $5,000 freelance AI project looks like.",
+  concepts:["Multi-document RAG: separate namespaces per document, UI to select which documents to search","Conversational RAG: reformulate questions based on chat history before retrieval","Streaming RAG: stream tokens as the LLM generates, while showing retrieved sources separately","Metadata display: show retrieved chunks and their similarity scores in a debug panel","Error handling: what happens when no relevant chunk is found? Graceful fallback"],
+  tools:["langchain","langchain-openai","langchain-chroma","streamlit"],
+  practice:"Build a 'Company Knowledge Assistant' — upload multiple company documents, ask questions in natural language with conversation history, see which documents were consulted, with streaming answers. Third portfolio project."
+},
+
+// ─── PHASE 2, WEEK 8 ─────────────────────────────────────────────
+{
+  phase:2, week:8, weekTitle:"Fine-Tuning & Advanced LLM Concepts",
+  day:53, title:"When to Fine-Tune vs RAG vs Prompting",
+  duration:"3–4 hrs", tags:["Fine-tuning","Decision Framework","Architecture"],
+  why:"This is one of the highest-stakes architectural decisions in AI engineering. Fine-tuning incorrectly wastes thousands of dollars and weeks of work. Understanding the exact scenarios where each approach wins prevents costly mistakes. Most use cases are solved by better prompting — fine-tuning is the last resort, not the first.",
+  concepts:["Prompting: always try first. Zero cost, instant, flexible. Solves 80% of problems","RAG: when you need access to specific, up-to-date, or large external knowledge. Flexible, auditable","Fine-tuning: when you need a specific style, format, or domain behavior that prompting can't achieve","Fine-tuning does NOT add knowledge: it changes how the model responds, not what it knows","Cost comparison: prompting ($0), RAG ($10s/month), fine-tuning ($100s–$1000s one-time + serving cost"],
+  tools:[],
+  practice:"Analyze 3 real AI use cases: (1) customer support bot, (2) medical code extraction from notes, (3) code generation in a proprietary framework. For each, argue for the best approach with specific reasoning."
+},
+{
+  phase:2, week:8, weekTitle:"Fine-Tuning & Advanced LLM Concepts",
+  day:54, title:"Fine-Tuning Concepts — SFT, RLHF, DPO",
+  duration:"4–5 hrs", tags:["Fine-tuning","SFT","RLHF","DPO"],
+  why:"Understanding fine-tuning techniques at a conceptual level helps you read research papers, follow industry developments, and make informed decisions about when to use commercial fine-tuning APIs vs training yourself. SFT is standard, RLHF is what made ChatGPT, DPO is the modern efficient alternative.",
+  concepts:["Supervised Fine-Tuning (SFT): train on input-output pairs. Dataset: [{prompt: X, completion: Y}]","RLHF: train a reward model on human preferences, then use it to guide policy training via PPO","DPO (Direct Preference Optimization): skip the reward model, directly optimize on preference pairs — simpler and often better","Pre-training vs fine-tuning: pre-training learns language, fine-tuning steers behavior. Very different scales","Dataset quality > quantity: 1,000 high-quality examples beats 100,000 mediocre ones — proven repeatedly"],
+  tools:["datasets (Hugging Face)"],
+  practice:"Prepare a fine-tuning dataset for a Python code explainer: 100 (code, explanation) pairs. Format in the Alpaca format (instruction/input/output). Apply data cleaning: remove duplicates, filter too-short examples, ensure consistent formatting."
+},
+{
+  phase:2, week:8, weekTitle:"Fine-Tuning & Advanced LLM Concepts",
+  day:55, title:"LoRA & Parameter-Efficient Fine-Tuning (PEFT)",
+  duration:"5–6 hrs", tags:["LoRA","PEFT","Efficient Fine-tuning"],
+  why:"Training a full 7B parameter model requires 56GB of GPU memory and costs hundreds of dollars. LoRA (Low-Rank Adaptation) fine-tunes only 1% of parameters using low-rank matrix decomposition — same results in 5% of the memory. This is what makes fine-tuning accessible to everyone with a consumer GPU.",
+  concepts:["Full fine-tuning problem: update all parameters → massive memory → expensive","LoRA insight: model weight changes during fine-tuning have low intrinsic rank — approximate with small matrices","LoRA parameters: r (rank, usually 8–64), alpha (scaling, usually 2×r), target_modules (which layers to adapt)","QLoRA: quantize the base model to 4-bit, apply LoRA adapters — run 70B models on consumer GPUs","Adapter merging: after training, merge LoRA weights into base model for zero-overhead inference"],
+  tools:["peft","bitsandbytes"],
+  practice:"Load Mistral-7B with 4-bit quantization using BitsAndBytesConfig. Apply a LoRA configuration with r=16. Inspect which parameters are trainable (should be ~1%). Count the trainable parameter count vs total."
+},
+{
+  phase:2, week:8, weekTitle:"Fine-Tuning & Advanced LLM Concepts",
+  day:56, title:"Fine-Tuning with Hugging Face TRL",
+  duration:"6–8 hrs", tags:["TRL","SFTTrainer","Hugging Face","Training"],
+  why:"TRL (Transformer Reinforcement Learning) is Hugging Face's library for fine-tuning LLMs. SFTTrainer handles all the complexity: batching, gradient accumulation, mixed precision, LoRA integration. This is the practical tool for doing actual fine-tuning — understanding it lets you train your own specialized models.",
+  concepts:["SFTTrainer: Supervised Fine-Tuning Trainer — handles data formatting, training loop, and checkpointing","TrainingArguments: configure batch size, learning rate, epochs, output directory, logging","Data formatting: SFTTrainer accepts conversations in ChatML format: <|user|>, <|assistant|>","Gradient accumulation: simulate larger batch sizes with gradient_accumulation_steps when GPU memory is limited","Weights & Biases (wandb): log training metrics, loss curves, and hyperparameter sweeps — free for personal use"],
+  tools:["trl","peft","transformers","bitsandbytes","wandb"],
+  practice:"Fine-tune Llama-3.2-1B (small, fast) on your Day 54 dataset using SFTTrainer + QLoRA. Monitor the training loss with wandb. Test the fine-tuned model vs base model on 10 code explanation examples. Publish your adapter on Hugging Face Hub."
+},
+{
+  phase:2, week:8, weekTitle:"Fine-Tuning & Advanced LLM Concepts",
+  day:57, title:"Unsloth — 2x Faster Fine-Tuning",
+  duration:"4–5 hrs", tags:["Unsloth","Fast Fine-tuning","Efficiency"],
+  why:"Unsloth uses custom CUDA kernels to make fine-tuning 2–5× faster with 60–70% less memory. It's compatible with TRL and PEFT, so you don't change your workflow — just add 2 lines. For anyone fine-tuning on Colab or limited GPUs, Unsloth transforms 8-hour runs into 2-hour runs.",
+  concepts:["Unsloth's approach: hand-optimized Triton CUDA kernels for attention and cross-entropy — faster than FlashAttention","FastLanguageModel: drop-in replacement for transformers' AutoModel. Supports Llama, Mistral, Phi, Gemma","VRAM reduction: 70% less VRAM than standard fine-tuning — enables larger batch sizes","Google Colab workflow: Unsloth + free T4 GPU is a viable fine-tuning environment for small models","Export options: save to GGUF for Ollama, VLLM for serving, or Hugging Face Hub"],
+  tools:["unsloth"],
+  practice:"Re-run your Day 56 fine-tuning using Unsloth. Compare: training time, VRAM usage, and final model quality. Export the model to GGUF format and run it locally with Ollama."
+},
+{
+  phase:2, week:8, weekTitle:"Fine-Tuning & Advanced LLM Concepts",
+  day:58, title:"Quantization — Running Large Models on Small GPUs",
+  duration:"4–5 hrs", tags:["Quantization","GGUF","GPTQ","Efficiency"],
+  why:"A 70B parameter model in FP16 needs 140GB of RAM — impossible on consumer hardware. Quantized to 4-bit, it needs only 35GB — manageable. Quantization compresses model weights by using fewer bits per number. Understanding quantization formats helps you choose the right model for your hardware.",
+  concepts:["Float16 vs Int8 vs Int4: trade-off between precision and memory. Int4 loses ~2% quality, saves 4× memory","GGUF format: the standard for running LLMs with llama.cpp and Ollama. Supports partial GPU offloading","GPTQ: GPU-based quantization — faster inference than GGUF on GPUs with minimal quality loss","AWQ: another quantization method that better preserves activations — often slightly better quality than GPTQ","Perplexity testing: measure quality degradation from quantization — usually negligible at Q4_K_M","bitsandbytes: Python library for NF4 quantization, used with transformers and Unsloth"],
+  tools:["bitsandbytes","ollama","llama-cpp-python"],
+  practice:"Compare the same Llama-3-8B model at: FP16, INT8 (bitsandbytes), INT4 (GGUF Q4_K_M), and INT4 (GPTQ). Measure: memory usage, tokens/second, and output quality on 10 prompts. Build a 'quantization comparison table'."
+},
+{
+  phase:2, week:8, weekTitle:"Fine-Tuning & Advanced LLM Concepts",
+  day:59, title:"LLM Serving with vLLM & Batch Inference",
+  duration:"4–5 hrs", tags:["vLLM","Serving","Production","Inference"],
+  why:"For production systems serving many users, naively running LLMs is extremely slow (1 request at a time). vLLM uses PagedAttention to serve 10–30× more requests per second on the same hardware. If you're deploying open-source models to production, vLLM is the standard serving framework.",
+  concepts:["vLLM: production LLM serving. PagedAttention enables efficient KV cache management for many concurrent requests","Continuous batching: dynamically group user requests for maximum GPU utilization","OpenAI-compatible API: vLLM exposes the same API as OpenAI — drop-in replacement for existing code","Throughput vs latency: vLLM optimizes throughput (requests/second) which may increase latency for individual requests","Ollama vs vLLM: Ollama is for development (easy, slow). vLLM is for production (complex, fast)"],
+  tools:["vllm"],
+  practice:"Deploy Llama-3-8B with vLLM locally. Send 50 concurrent requests and measure throughput (tokens/second). Compare with naive sequential inference. Test the OpenAI-compatible API endpoint with your existing client code."
+},
+{
+  phase:2, week:8, weekTitle:"Fine-Tuning & Advanced LLM Concepts",
+  day:60, title:"Phase 2 Capstone — Knowledge Base Assistant",
+  duration:"10–12 hrs", tags:["Project","Capstone","RAG","Fine-tuning"],
+  why:"A portfolio-ready RAG application demonstrating every Phase 2 skill. Companies like Notion, Confluence, and internal knowledge management tools all need exactly this. This is the project that gets interviews.",
+  concepts:["Multi-format document ingestion: PDF, DOCX, URLs, and plain text","Advanced RAG: hybrid search, HyDE, re-ranking, semantic chunking","Fine-tuned model option: serve your Day 57 fine-tuned model via Ollama as an alternative to GPT-4o","RAGAS evaluation dashboard: score every answer automatically","Complete UI: upload docs, chat, see sources, switch models, export conversation"],
+  tools:["streamlit","langchain","chromadb","openai","ragas","ollama"],
+  practice:"Build the full Knowledge Base Assistant. Make it production-quality: proper error handling, loading states, empty state UI, mobile-responsive layout. Write a detailed README. Deploy to Streamlit Cloud. This is your biggest portfolio project so far."
+},
+
+// ═══════════════════════════════════════════════════════════════════
+// PHASE 3 · ADVANCED · DAYS 61–90
+// ═══════════════════════════════════════════════════════════════════
+{
+  phase:3, week:9, weekTitle:"AI Agents — Theory & Foundations",
+  day:61, title:"What Are AI Agents?",
+  duration:"4–5 hrs", tags:["Agents","ReAct","Autonomous AI","Theory"],
+  why:"AI Agents are the defining technology of 2024–2025. Instead of passively answering questions, agents autonomously plan, use tools, and take multi-step actions to complete complex goals. Every major company is building agents — they're the next evolution beyond chatbots and RAG systems. Understanding the fundamentals separates senior AI engineers from juniors.",
+  concepts:["Agents vs chatbots: chatbots respond to single queries. Agents plan and execute multi-step tasks autonomously","Agent components: Brain (LLM), Memory (context), Tools (actions), Environment (the world it acts in)","The ReAct framework (Reason + Act): Think about what to do → Choose a tool → Observe the result → Repeat","Autonomy spectrum: fully human-controlled → human-in-loop → supervised autonomous → fully autonomous","When to use agents: tasks requiring web search, code execution, API calls, or multiple sequential decisions"],
+  tools:["langchain"],
+  practice:"Trace the ReAct loop manually: given the task 'Find the current population of Mumbai and calculate its annual growth rate from 10 years ago', write out the Thought-Action-Observation steps you'd expect an agent to take before you build it."
+},
+{
+  phase:3, week:9, weekTitle:"AI Agents — Theory & Foundations",
+  day:62, title:"OpenAI Function Calling & Tool Use",
+  duration:"5–6 hrs", tags:["Function Calling","Tool Use","OpenAI","Anthropic"],
+  why:"Function calling is the native API mechanism for agents. The LLM returns a structured JSON object specifying which tool to call with which arguments — you execute it, return the result, and the model continues. Understanding this at the raw API level gives you precise control that any framework abstracts away.",
+  concepts:["Tool definition: JSON schema describing the function name, description, and parameters — LLM reads this","tool_calls in the response: the model returns a list of tool invocations instead of text","Executing tools: your code runs the function, captures the result, sends it back as a tool_result message","Parallel tool calling: GPT-4o and Claude can call multiple tools simultaneously — much faster for independent tasks","Anthropic's tool_use format: slightly different from OpenAI but same concept — worth knowing both"],
+  tools:["openai","anthropic"],
+  practice:"Build a raw function-calling agent (no frameworks) with 3 tools: get_weather(city), calculate(expression), search_web(query). Implement the full Thought-Action-Observation loop manually. Handle parallel tool calls."
+},
+{
+  phase:3, week:9, weekTitle:"AI Agents — Theory & Foundations",
+  day:63, title:"Building Your First Agent with LangChain",
+  duration:"5–6 hrs", tags:["LangChain","Agents","AgentExecutor"],
+  why:"LangChain's agent abstractions let you build working agents in minutes instead of hours. create_tool_calling_agent + AgentExecutor is the most reliable combination for production agents. But verbose mode reveals what's happening — and debugging requires this understanding.",
+  concepts:["create_tool_calling_agent: builds an agent prompt + chain that uses tool calling natively","AgentExecutor: wraps the agent, manages the loop, handles tool execution, stops when done","max_iterations: prevent infinite loops (default 15 — always set this explicitly)","verbose=True: prints every thought, tool call, and observation — essential for debugging","return_intermediate_steps: return the full chain of thoughts for inspection or display"],
+  tools:["langchain","langchain-openai","tavily-python"],
+  practice:"Build a research assistant agent with tools: web search (Tavily), Wikipedia, and your ChromaDB knowledge base. Given a research topic, it should search multiple sources and synthesize a comprehensive answer. Test with 5 complex research questions."
+},
+{
+  phase:3, week:9, weekTitle:"AI Agents — Theory & Foundations",
+  day:64, title:"Agent Memory Strategies",
+  duration:"4–5 hrs", tags:["Memory","Agents","Long-term Memory"],
+  why:"Agents working on long tasks need to remember what they've done. Agents serving users over time need to remember user preferences. Without memory design, every agent conversation starts from scratch — severely limiting capability. Memory is what makes the difference between a one-shot tool and a persistent AI assistant.",
+  concepts:["In-context memory: pass the full conversation history in every prompt — simple but expensive for long tasks","External short-term memory: store recent steps in a database, retrieve the last N — caps cost","Semantic memory: store facts as embeddings, retrieve relevant ones per query — powers personalization","Episodic memory: store summaries of past interactions — the 'what happened last time' memory","Tool-augmented memory: give the agent explicit remember() and recall() tools it decides to use"],
+  tools:["langchain","chromadb"],
+  practice:"Build an agent with persistent memory across conversations: it should remember user preferences, past solutions it tried, and facts it learned. Use ChromaDB as the external memory store. Test across 3 separate conversation sessions."
+},
+{
+  phase:3, week:9, weekTitle:"AI Agents — Theory & Foundations",
+  day:65, title:"Agent Evaluation & Debugging with LangSmith",
+  duration:"4–5 hrs", tags:["LangSmith","Debugging","Evaluation","Tracing"],
+  why:"Agents fail in subtle, hard-to-reproduce ways. LangSmith is Anthropic-equivalent observability for LangChain — it traces every single LLM call, tool invocation, and decision in your agent. Without it, debugging a 20-step agent failure is like debugging code without a stack trace: nearly impossible.",
+  concepts:["LangSmith tracing: automatically captures every LangChain call with inputs, outputs, and timing","The Runs view: see your agent's full execution tree — which tools were called, what the LLM thought","Datasets & Evaluations: build test suites and evaluate agent performance automatically","Cost tracking: LangSmith shows the exact token usage and cost per agent run","Feedback: annotate agent runs as correct/incorrect to build evaluation datasets"],
+  tools:["langsmith"],
+  practice:"Set up LangSmith and re-run your Day 63 research agent with tracing enabled. Find a run where the agent made a suboptimal tool choice. Identify the exact LLM input/output that caused it. Fix the tool description to prevent it."
+},
+{
+  phase:3, week:9, weekTitle:"AI Agents — Theory & Foundations",
+  day:66, title:"Tool Design Best Practices",
+  duration:"3–4 hrs", tags:["Tools","Tool Design","Best Practices"],
+  why:"A well-designed tool with a clear description is the difference between an agent that uses it correctly and one that ignores it or misuses it. Tool design is a skill — the description is the interface between human intent and LLM capability. Bad tool design is the #1 cause of agent failures.",
+  concepts:["Tool description = tool contract: describe WHEN to use it, WHAT it does, and what it returns","Parameter descriptions: be explicit about format ('city should be in format City, Country')","Error handling: tools should return descriptive errors, not raw exceptions — the LLM can recover from clear errors","Idempotent tools: tools that can be called multiple times safely — agents may retry on perceived failure","Tool granularity: specific tools (get_weather_forecast_7_day) beat vague tools (get_weather) for agent accuracy"],
+  tools:["langchain"],
+  practice:"Audit the tools from your previous agents. Rewrite every tool description using the WHEN/WHAT/RETURNS framework. Add proper error handling to each tool. Re-run the same tests — measure if the agent's tool selection accuracy improves."
+},
+{
+  phase:3, week:9, weekTitle:"AI Agents — Theory & Foundations",
+  day:67, title:"Code Execution Agents",
+  duration:"5–6 hrs", tags:["Code Agent","Python REPL","Execution"],
+  why:"Code-execution agents can solve almost any computational problem by writing and running Python code. GPT-4o Code Interpreter (the ChatGPT 'data analysis' feature) is exactly this pattern. Building one yourself reveals the magic and lets you deploy the same capability in your own applications.",
+  concepts:["Python REPL tool: executes arbitrary Python code and returns stdout/stderr — extremely powerful","Sandbox security: never run a code agent on production systems. Use Docker containers or E2B sandboxes","E2B (e2b.dev): cloud sandboxes for LLM-generated code — safe, isolated, with file system access","Code agent loop: the agent writes code → executes it → reads output → debugs if error → iterates","State persistence: the REPL maintains state across steps — variables defined in step 1 are accessible in step 5"],
+  tools:["langchain (PythonREPLTool)","e2b"],
+  practice:"Build a data analysis agent: give it a CSV file and a task ('Analyze sales trends and create visualizations'). It should write and run Python code to: load the data, perform analysis, create matplotlib charts, and summarize findings. Use E2B for safe sandboxed execution."
+},
+
+// ─── PHASE 3, WEEK 10 ────────────────────────────────────────────
+{
+  phase:3, week:10, weekTitle:"LangGraph — Stateful Agent Workflows",
+  day:68, title:"What Is LangGraph & Why It Matters",
+  duration:"4–5 hrs", tags:["LangGraph","State Machine","Graph","Architecture"],
+  why:"LangGraph is the most important AI framework of 2024. Standard LangChain agents run linearly — they can't easily branch, loop, or coordinate complex multi-step workflows. LangGraph models agents as state machines (graphs of nodes and edges). This enables: branching workflows, human approval steps, multi-agent coordination, and persistent state across many calls. It's now the standard for production agents.",
+  concepts:["Why graphs? Real workflows branch, loop, and coordinate — linear chains can't model this","State machine: your agent is a graph where nodes transform state, edges determine flow","LangGraph vs LangChain agents: LangGraph gives full control of flow. LangChain agents are black boxes","State: a TypedDict that travels through the graph, accumulating results from each node","The compile → invoke cycle: .compile() builds the runnable graph. .invoke(state) runs it"],
+  tools:["langgraph"],
+  practice:"Draw the state machine diagram for a research agent: START → search_web → (found enough info? → YES → synthesize → END, NO → search_again → synthesize → END). This conceptual exercise is the foundation of all LangGraph development."
+},
+{
+  phase:3, week:10, weekTitle:"LangGraph — Stateful Agent Workflows",
+  day:69, title:"LangGraph Core — State, Nodes & Edges",
+  duration:"5–6 hrs", tags:["LangGraph","State","Nodes","Edges"],
+  why:"State, nodes, and edges are the atomic building blocks of all LangGraph applications. Every node is a Python function that reads from and writes to the shared state. Edges determine which node runs next. Mastering this enables you to build any agent workflow imaginable.",
+  concepts:["State (TypedDict): defines what data flows through the graph. Each field is updated by nodes","Nodes: Python functions with signature (state: State) → State update dict — they transform state","Edges: deterministic (node_a always goes to node_b) or conditional (a function decides the next node)","Special nodes: START (entry) and END (exit). Every graph must have a path from START to END","add_messages reducer: the standard way to accumulate message history in LangGraph state — prevents overwrites"],
+  tools:["langgraph"],
+  practice:"Build your first LangGraph: a 3-node chain (preprocess → llm_call → postprocess). Pass a user query through, have the LLM answer, then format the output. Use the mermaid diagram output (.get_graph().draw_mermaid()) to visualize the graph."
+},
+{
+  phase:3, week:10, weekTitle:"LangGraph — Stateful Agent Workflows",
+  day:70, title:"State Design & Reducers",
+  duration:"4–5 hrs", tags:["LangGraph","State Design","Reducers"],
+  why:"State design is the most important architectural decision in LangGraph. Good state design makes nodes clean and loosely coupled. Bad state design creates tangled dependencies that are impossible to debug. Reducers are how you handle concurrent updates to the same state field without race conditions.",
+  concepts:["Designing state schemas: include everything nodes need to read and write — no more, no less","Reducer functions: how concurrent updates to the same field are merged. add_messages appends, default replaces","Annotated type hints: Annotated[list[str], operator.add] — tell LangGraph how to merge updates to a field","Private state: fields only specific nodes need — use nested TypedDicts for modularity","Input vs output schema: you can define what the graph accepts as input vs what internal state looks like"],
+  tools:["langgraph"],
+  practice:"Design state schemas for three different agents: (1) a customer service agent, (2) a code review agent, (3) a data analysis agent. For each, justify which fields are needed and what reducers make sense."
+},
+{
+  phase:3, week:10, weekTitle:"LangGraph — Stateful Agent Workflows",
+  day:71, title:"Building a ReAct Agent in LangGraph",
+  duration:"6–7 hrs", tags:["LangGraph","ReAct","Tool Node","Agent"],
+  why:"Building the ReAct agent pattern from scratch in LangGraph is the most educational exercise in this entire roadmap. It strips away all abstraction and shows you exactly how agents work: the LLM chooses a tool → ToolNode executes it → result goes back to LLM → repeat until done. Once you understand this, you can build ANY agent pattern.",
+  concepts:["The agent node: calls the LLM with tools, returns either tool_calls or a final message","ToolNode: a prebuilt node that executes tool calls and returns results — saves boilerplate","should_continue: the conditional edge function that checks 'did the LLM call a tool? if yes → tools, if no → END'","Binding tools: llm.bind_tools(tools) makes the LLM aware of available tools and their schemas","MessagesState: a built-in state class that handles message history with add_messages reducer"],
+  tools:["langgraph","langchain-openai","tavily-python"],
+  practice:"Build a complete ReAct agent in LangGraph with: web search, calculator, and Wikipedia tools. Visualize the graph. Run 10 queries and trace the full execution path in LangSmith. Intentionally trigger a tool error and verify the agent handles it gracefully."
+},
+{
+  phase:3, week:10, weekTitle:"LangGraph — Stateful Agent Workflows",
+  day:72, title:"Conditional Routing & Complex Workflows",
+  duration:"5–6 hrs", tags:["LangGraph","Routing","Conditional Edges"],
+  why:"Real-world agent workflows rarely follow a straight line. A document processing agent might branch based on document type. A customer service agent routes to different specialists. LangGraph's conditional edges model this naturally — a function inspects state and decides the next node. This is the key to building genuinely complex workflows.",
+  concepts:["Conditional edge function: (state) → node_name. Returns the name of the next node to execute","Router nodes: a node whose job is solely to inspect state and decide routing — clean pattern","Map-reduce in LangGraph: fan out to multiple nodes in parallel (Send API), collect results, aggregate","Parallel execution: use Send() to dispatch multiple subgraphs simultaneously — massive speedup for independent tasks","Error recovery: route to an error handler node when a tool fails instead of crashing"],
+  tools:["langgraph"],
+  practice:"Build a document routing agent: classify incoming documents as 'legal', 'financial', or 'technical', then route to a specialized processing subgraph for each type. Each subgraph extracts different structured information. Use parallel processing for multiple documents."
+},
+{
+  phase:3, week:10, weekTitle:"LangGraph — Stateful Agent Workflows",
+  day:73, title:"Human-in-the-Loop with LangGraph",
+  duration:"5–6 hrs", tags:["Human-in-the-loop","LangGraph","Interrupt","Safety"],
+  why:"Fully autonomous agents make mistakes — sometimes costly ones. Human-in-the-loop patterns add safety checkpoints: the agent plans an action, pauses and shows it to a human for approval, then continues. This is essential for agents that can send emails, modify databases, or take irreversible actions. LangGraph's interrupt mechanism makes this elegantly simple.",
+  concepts:["interrupt_before / interrupt_after: pause graph execution before or after specific nodes","Breakpoints: tell the graph which nodes require human approval before proceeding","State inspection at breakpoints: the full state is available for human review when paused","Resume: call .invoke() with null input and the thread_id to continue from where you left off","Approval workflow pattern: agent proposes action → human reviews → approve (continue) or reject (modify state)"],
+  tools:["langgraph"],
+  practice:"Build an email drafting agent with human approval: agent searches for context → drafts email → PAUSE → human reviews/edits → human approves → agent sends. The agent must incorporate human feedback before sending. Use Streamlit for the approval UI."
+},
+{
+  phase:3, week:10, weekTitle:"LangGraph — Stateful Agent Workflows",
+  day:74, title:"LangGraph Persistence & Multi-session Agents",
+  duration:"5–6 hrs", tags:["LangGraph","Persistence","Checkpointing","Multi-session"],
+  why:"Long-running agents need to survive failures and support multi-turn conversations across sessions. LangGraph's checkpointing system automatically saves the full graph state after every node — agents can resume exactly where they left off. Thread IDs enable one LangGraph instance to serve many users simultaneously.",
+  concepts:["MemorySaver: in-memory checkpointer. Fast, but lost on restart — good for development","SqliteSaver: persists checkpoints to SQLite file. Survives restarts — good for single-server production","PostgresSaver: production-grade persistence with concurrency support — for multi-server deployment","Thread ID (config={'configurable':{'thread_id':'user123'}}): isolates state per user or session","State history: access the full history of state changes with .get_state_history() — powerful for debugging"],
+  tools:["langgraph","langgraph-checkpoint-sqlite"],
+  practice:"Build a multi-session project assistant: a user starts a project analysis task, closes their browser, returns tomorrow, and the agent remembers exactly where it left off. Use SqliteSaver. Test resuming after a simulated crash."
+},
+
+// ─── PHASE 3, WEEK 11 ────────────────────────────────────────────
+{
+  phase:3, week:11, weekTitle:"Multi-Agent Systems",
+  day:75, title:"What Are Multi-Agent Systems?",
+  duration:"4–5 hrs", tags:["Multi-Agent","Architecture","Theory"],
+  why:"Complex tasks exceed what a single agent can do reliably. Multi-agent systems assign specialized roles — one agent researches, one writes, one critiques — mimicking how human expert teams work. They're more reliable, scalable, and capable than single agents. They're also one of the most exciting active research areas in AI.",
+  concepts:["Why multi-agent? Specialization (each agent optimized for one task), parallelism (run concurrently), reliability (agents check each other's work)","Orchestrator-worker: one coordinator agent breaks tasks down and assigns to specialists","Peer-to-peer: agents communicate directly with each other — flexible but complex to debug","Shared state: all agents read/write a common state (LangGraph pattern)","Message passing: agents communicate via structured messages (CrewAI/AutoGen pattern)"],
+  tools:[],
+  practice:"Design a multi-agent system for your Dream AI project. Draw the architecture: which agents exist, what are their roles, how do they communicate, what's the shared state? This design exercise is more valuable than the implementation."
+},
+{
+  phase:3, week:11, weekTitle:"Multi-Agent Systems",
+  day:76, title:"CrewAI — Role-Based Multi-Agent Framework",
+  duration:"5–6 hrs", tags:["CrewAI","Multi-Agent","Roles","Crew"],
+  why:"CrewAI is the most popular multi-agent framework for building role-based AI teams. Its metaphor is intuitive: you define a Crew (team) of Agents (team members), each with a Role, Goal, and Backstory, assigned to Tasks (work items). The Crew runs sequentially or hierarchically. It's beginner-friendly while being production-capable.",
+  concepts:["Agent: defined by role, goal, backstory (guides its thinking), and allowed tools","Task: defined by description, expected_output, and assigned agent — the unit of work","Crew: combines agents and tasks into an executable team. Sequential: task 1 → task 2 → task 3","Hierarchical process: a manager agent breaks down work and assigns to worker agents dynamically","Verbose output: shows each agent's thinking and output — essential for debugging"],
+  tools:["crewai"],
+  practice:"Build a CrewAI team: (1) Researcher Agent — searches the web, (2) Analyst Agent — synthesizes findings, (3) Writer Agent — produces a report. Task: research a topic, analyze key themes, write a professional report. Run it on 'The future of AI agents'."
+},
+{
+  phase:3, week:11, weekTitle:"Multi-Agent Systems",
+  day:77, title:"CrewAI Tools, Flows & Advanced Patterns",
+  duration:"5–6 hrs", tags:["CrewAI","Tools","Flows","Advanced"],
+  why:"CrewAI Tools extend agent capabilities, and CrewAI Flows (the newer addition) add structured workflow control to multi-agent systems. Understanding advanced patterns like agent delegation and manager-worker hierarchies lets you build production-grade research, content, and automation systems.",
+  concepts:["Built-in tools: SerperDevTool (Google search), WebsiteSearchTool (RAG on URLs), FileReadTool, CodeInterpreterTool","Custom tools: inherit from BaseTool, implement _run() and optionally _arun() for async","CrewAI Flows: orchestrate multiple crews in a structured workflow with @start, @listen, and state management","Manager LLM: in hierarchical mode, a manager LLM dynamically assigns tasks to agents — no hard-coded order","Output parsing: ensure tasks have specific expected_output to force structured agent outputs"],
+  tools:["crewai","crewai-tools"],
+  practice:"Extend your Day 76 crew: add custom tools for database queries and PDF reading. Implement hierarchical mode with a manager agent. Run it on a complex multi-domain research task. Save outputs to markdown files automatically."
+},
+{
+  phase:3, week:11, weekTitle:"Multi-Agent Systems",
+  day:78, title:"Multi-Agent Systems with LangGraph",
+  duration:"6–7 hrs", tags:["LangGraph","Multi-Agent","Supervisor","Collaboration"],
+  why:"LangGraph is the most powerful foundation for multi-agent systems because its state machine model perfectly captures agent collaboration: one agent updates state, another reads it and takes action. The supervisor pattern — a meta-agent that routes between specialist agents — is the LangGraph multi-agent archetype.",
+  concepts:["Supervisor pattern: a coordinator node decides which specialist agent node to call next based on task progress","Agent as subgraph: each agent is its own compiled LangGraph graph, called as a node by the supervisor","Shared state in multi-agent: all agents read/write the same state — message passing is through state updates","Parallel agents: use Send() API to run multiple agents simultaneously on independent subtasks","Handoffs: an agent explicitly passes control to another agent by returning a specific state update"],
+  tools:["langgraph"],
+  practice:"Build a multi-agent research system in LangGraph: Supervisor → routes to Web Researcher OR Database Analyst OR Report Writer based on current progress. Each agent is a separate compiled subgraph. Compare quality with your Day 76 CrewAI system on the same task."
+},
+{
+  phase:3, week:11, weekTitle:"Multi-Agent Systems",
+  day:79, title:"AutoGen — Conversational Multi-Agent Framework",
+  duration:"4–5 hrs", tags:["AutoGen","Microsoft","Multi-Agent","Conversation"],
+  why:"AutoGen takes a different approach: agents converse with each other to complete tasks — like a group chat of AI agents. It's excellent for scenarios where agents need to debate, iteratively improve code, or review each other's work. It's the foundation of Microsoft's Copilot Studio agent capabilities.",
+  concepts:["AssistantAgent: an AI agent that generates text and code, responds to messages","UserProxyAgent: can execute code, interact with APIs, and relay human feedback to agents","GroupChat: multiple agents talk in turns — configurable turn order and max rounds","ConversableAgent: the base class for custom agents with custom respond behavior","AutoGen Studio: a visual UI for building AutoGen workflows without code — great for demos"],
+  tools:["pyautogen"],
+  practice:"Build an AutoGen code review system: CodeWriter agent writes a Python function, CodeReviewer agent critiques it, CodeWriter revises based on feedback, loop until CodeReviewer approves. Test with a sorting algorithm implementation task."
+},
+{
+  phase:3, week:11, weekTitle:"Multi-Agent Systems",
+  day:80, title:"Comparing Multi-Agent Frameworks",
+  duration:"3–4 hrs", tags:["CrewAI","LangGraph","AutoGen","Comparison"],
+  why:"Choosing the wrong framework wastes weeks. CrewAI is easiest to start with. LangGraph has the most control and is best for production. AutoGen is best for code-centric and conversational workflows. A clear decision framework prevents costly architectural mistakes.",
+  concepts:["CrewAI: best for role-based teams with linear/hierarchical workflows. Fastest to prototype. Less control","LangGraph: best for complex, stateful workflows needing precise control. Steeper learning curve. Production-ready","AutoGen: best for iterative, conversational multi-agent patterns. Strong for code generation and review","Framework interoperability: CrewAI crews can run inside LangGraph nodes — use the best of both","Emerging frameworks: Agno, Pydantic AI, Atomic Agents — the ecosystem is evolving rapidly"],
+  tools:["crewai","langgraph","pyautogen"],
+  practice:"Implement the same task (research a company and write a competitive analysis) in all three frameworks. Time it, evaluate quality, and note which framework felt most natural. Write your own 'framework selection guide' for future reference."
+},
+{
+  phase:3, week:11, weekTitle:"Multi-Agent Systems",
+  day:81, title:"Building a Research Team with CrewAI",
+  duration:"8–10 hrs", tags:["Project","CrewAI","Research","Multi-Agent"],
+  why:"A research team that autonomously searches the web, analyzes sources, synthesizes findings, and produces professional reports is one of the most valuable agent systems to know how to build. Consulting firms charge $50,000+ for manual versions of what this system does automatically.",
+  concepts:["Full pipeline: Query → Web Research → Source Validation → Analysis → Report Writing → Formatting","Multiple data sources: web search, academic papers (Semantic Scholar API), company databases","Quality control: a 'critic' agent that reviews and scores the report before final output","Human oversight: interrupt before final report for human approval — hybrid autonomous/supervised","Output formats: markdown, PDF, or structured JSON depending on use case"],
+  tools:["crewai","crewai-tools","serper","streamlit"],
+  practice:"Build a 5-agent research crew: Researcher, Fact-Checker, Analyst, Writer, Editor. Deploy as a Streamlit app with a clean UI where users enter a research question and receive a full formatted report with citations. Fourth major portfolio project."
+},
+{
+  phase:3, week:11, weekTitle:"Multi-Agent Systems",
+  day:82, title:"Advanced Agent Patterns",
+  duration:"5–6 hrs", tags:["Plan-and-Execute","Reflection","Advanced Patterns"],
+  why:"Production agents use sophisticated patterns that go beyond simple ReAct loops. Plan-and-execute agents create a full plan upfront before acting — better for long, structured tasks. Reflection agents critique their own outputs and iterate to improve them. These patterns are used in state-of-the-art AI systems.",
+  concepts:["Plan-and-execute: first generate a complete step-by-step plan, then execute each step — better for complex, predictable tasks","Reflexion: agent generates output → self-critique → revision → repeat. Empirically improves quality","Self-ask: agent decomposes complex questions into sub-questions, answers each, synthesizes — great for multi-hop reasoning","Tree of Agents: spawn sub-agents for sub-tasks, aggregate results — hierarchical task decomposition","Agent debate: two agents argue opposing positions, a judge agent synthesizes the best answer"],
+  tools:["langgraph","langchain"],
+  practice:"Implement the Reflexion pattern in LangGraph: agent answers a question → critic node evaluates (faithfulness, completeness, correctness) → if score < 0.8, loop back to agent with critique → max 3 iterations. Test on 10 complex questions."
+},
+
+// ─── PHASE 3, WEEK 12 ────────────────────────────────────────────
+{
+  phase:3, week:12, weekTitle:"Production, Monitoring & Best Practices",
+  day:83, title:"LangSmith — Full Observability for Production",
+  duration:"4–5 hrs", tags:["LangSmith","Observability","Monitoring","Production"],
+  why:"You can't improve what you can't see. LangSmith traces every LLM call, tool invocation, and agent decision with full inputs and outputs. In production, it's the difference between debugging in 5 minutes vs 5 hours. It also enables you to build evaluation datasets from real production traffic — invaluable for continuous improvement.",
+  concepts:["Full tracing: every LangChain/LangGraph call is automatically captured — zero code changes needed","Playground: replay any production LLM call with different models or prompts — A/B test directly on real examples","Datasets: export production traces to build evaluation datasets from real usage","Monitoring: set up alerts for: high latency, high error rate, low quality scores, unexpected tool usage","LangSmith Hub: share and version prompts — the Git for LLM prompts, with A/B testing support"],
+  tools:["langsmith"],
+  practice:"Set up LangSmith for your Day 60 knowledge base app. Run 50 real queries through it. Analyze: which queries have the highest latency? Which have the lowest quality? Use the data to identify your top 3 improvement opportunities."
+},
+{
+  phase:3, week:12, weekTitle:"Production, Monitoring & Best Practices",
+  day:84, title:"LLM Evaluation Frameworks",
+  duration:"5–6 hrs", tags:["Evaluation","RAGAS","TruLens","LLM-as-judge"],
+  why:"Without systematic evaluation, you're flying blind. LLM evaluation is the most underrated skill in AI engineering — and the one that separates teams that improve from teams that guess. LLM-as-judge (using a powerful LLM to evaluate outputs) is now the standard for automated evaluation at scale.",
+  concepts:["RAGAS: for RAG systems — faithfulness, answer relevance, context precision, context recall","TruLens: end-to-end LLM app evaluation with groundedness, answer relevance, and context relevance","LLM-as-judge: use GPT-4 to evaluate outputs on custom criteria — flexible and scalable","Regression testing: save 'golden' test cases and run them on every code change to catch degradations","Evals-driven development: write evaluations before building features — TDD for AI systems"],
+  tools:["ragas","trulens","langsmith (evaluations)"],
+  practice:"Build an evaluation suite for your research agent from Day 81: 30 test cases with known correct answers. Run with RAGAS for RAG quality, TruLens for answer quality, and a custom LLM-as-judge rubric. Automate in CI/CD with GitHub Actions."
+},
+{
+  phase:3, week:12, weekTitle:"Production, Monitoring & Best Practices",
+  day:85, title:"Cost Optimization for LLM Applications",
+  duration:"4–5 hrs", tags:["Cost","Optimization","Caching","Model Routing"],
+  why:"LLM API costs scale with usage. A naive implementation that routes all queries to GPT-4o will cost 50× more than a smart one that uses GPT-4o-mini for simple queries and GPT-4o only for complex ones. Semantic caching can reduce costs by 30–60% for applications with repeated similar queries. Cost engineering is a real skill that directly impacts profitability.",
+  concepts:["Model routing: classify query complexity → route simple to cheap models (GPT-4o-mini), complex to powerful ones (GPT-4o)","Semantic caching: cache LLM responses by semantic similarity, not exact match — GPTCache, Redis with vector search","Prompt compression: LLMLingua compresses prompts 2–5× with minimal quality loss — great for long RAG contexts","Batch API: OpenAI and Anthropic batch APIs process requests 50% cheaper (with 24hr delay) — perfect for offline tasks","Output length control: be specific about output length in system prompts — models tend to over-generate"],
+  tools:["litellm (routing)","gptcache"],
+  practice:"Analyze the cost breakdown of your Day 60 knowledge base app. Implement: model routing (simple queries → gpt-4o-mini, complex → gpt-4o), semantic caching for repeated questions. Measure the cost reduction on a simulated 1,000-query workload."
+},
+{
+  phase:3, week:12, weekTitle:"Production, Monitoring & Best Practices",
+  day:86, title:"Security in AI Applications",
+  duration:"5–6 hrs", tags:["Security","Prompt Injection","Safety","Guardrails"],
+  why:"AI applications have unique, dangerous security vulnerabilities that didn't exist before. Prompt injection (users tricking your AI into ignoring its rules) is used to steal data, bypass safety, and manipulate outputs. PII leakage in logs is a GDPR nightmare. AI-specific security is an entire discipline every AI engineer must understand.",
+  concepts:["Prompt injection: user input contains instructions that override your system prompt — the #1 AI security threat","Indirect prompt injection: malicious instructions hidden in retrieved documents or web pages the agent reads","Jailbreaking: techniques to bypass safety guardrails — every AI engineer should understand how they work","PII detection: scan inputs and outputs for names, emails, phone numbers, SSNs before logging — use presidio","Guardrails AI: validates LLM inputs and outputs against safety rules — prevents policy violations at runtime"],
+  tools:["guardrails-ai","presidio-analyzer"],
+  practice:"Attack your own Day 63 agent with 5 different prompt injection attempts. Document which ones succeed. Add Guardrails AI to validate all inputs and outputs. Re-test — verify the injections are now blocked."
+},
+{
+  phase:3, week:12, weekTitle:"Production, Monitoring & Best Practices",
+  day:87, title:"Deploying AI Applications — Docker & Cloud",
+  duration:"6–7 hrs", tags:["Docker","Deployment","Cloud","Production"],
+  why:"Building locally is only half the job. Deploying to users — correctly, securely, reliably — is the other half. Docker ensures your app runs identically everywhere. Understanding cloud deployment options helps you choose the right platform for each project's scale and budget.",
+  concepts:["Dockerfile for AI apps: Python base image, copy code, install requirements, expose port, CMD","Docker Compose: run your app + vector database + cache together with one docker-compose up","Railway/Render: PaaS platforms that deploy Docker containers with zero DevOps. Free tier available","Cloud options: AWS (most control), GCP (best AI services), Azure (enterprise, has OpenAI integration)","Environment variables in production: never put secrets in Docker images — use platform secret managers"],
+  tools:["docker","docker-compose","railway.app"],
+  practice:"Dockerize your knowledge base app. Write a docker-compose.yml that includes the app + ChromaDB. Deploy to Railway with: production environment variables, proper logging, and a health check endpoint. Test the deployment."
+},
+{
+  phase:3, week:12, weekTitle:"Production, Monitoring & Best Practices",
+  day:88, title:"Async AI Applications & Performance",
+  duration:"5–6 hrs", tags:["Async","Performance","asyncio","Concurrency"],
+  why:"LLM API calls take 1–30 seconds. Blocking calls means only 1 user at a time can use your app. Async Python lets you handle hundreds of concurrent users on a single server. For agents with multiple tool calls, async lets you run them in parallel — drastically reducing total response time.",
+  concepts:["asyncio basics: async def, await, event loop — Python's built-in async framework","AsyncOpenAI / AsyncAnthropic: async versions of the client — essential for async FastAPI endpoints","asyncio.gather(): run multiple async calls in parallel — run 5 tool calls simultaneously instead of sequentially","Streaming with async: async for chunk in response — process streaming chunks without blocking","Task queues: Celery or ARQ for background agent runs that take minutes — don't block the HTTP request"],
+  tools:["asyncio","httpx","fastapi (async)","arq"],
+  practice:"Rewrite your FastAPI AI backend from Day 26 using all async endpoints. Benchmark: concurrent requests with async vs synchronous implementation. Implement parallel tool execution in your LangGraph agent using asyncio.gather(). Measure speedup."
+},
+{
+  phase:3, week:12, weekTitle:"Production, Monitoring & Best Practices",
+  day:89, title:"AI Engineering Best Practices & Career Path",
+  duration:"4–5 hrs", tags:["Best Practices","Career","AI Engineering","Future"],
+  why:"You've learned 88 days of tools and techniques. Now step back and absorb the professional mindset that ties it all together. These practices separate junior AI engineers from senior ones — and knowing the career landscape helps you position yourself correctly for the job market.",
+  concepts:["Evals-first development: always build evaluation infrastructure before or alongside features","Prompt version control: every system prompt should be versioned in Git with change notes","Testing AI systems: deterministic tests for parsing logic, probabilistic evals for model behavior","Staying current: key newsletters (The Batch, AI Breakfast), communities (r/MachineLearning, LangChain Discord), papers","Career paths: ML Engineer, AI Engineer, AI Product Manager, AI Researcher — skill overlaps and distinctions"],
+  tools:["pytest","GitHub Actions"],
+  practice:"Write a personal AI Engineering principles document (your AI engineering 'bible'). List: your prompting principles, evaluation checklist, architecture decision checklist, and the 5 most important lessons you've learned. This artifact will be more valuable than any tutorial."
+},
+{
+  phase:3, week:12, weekTitle:"Production, Monitoring & Best Practices",
+  day:90, title:"Final Capstone — Full-Stack AI Agent System",
+  duration:"12–15 hrs", tags:["Project","Capstone","Portfolio","Full Stack"],
+  why:"Ninety days of learning culminates in one showcase project. This is the project you send to recruiters, share on LinkedIn, and demo in interviews. It should demonstrate: multi-agent coordination, RAG, production quality, proper evaluation, and deployment. This is what an AI Engineering portfolio centerpiece looks like.",
+  concepts:["Multi-agent architecture: at least 2 specialized agents coordinated by a supervisor","RAG integration: agents with access to your vector knowledge base","Full UI: clean Streamlit or Next.js interface with streaming, loading states, and error handling","Evaluation dashboard: show quality metrics for every agent run (RAGAS, LangSmith)","Production deployment: Dockerized, deployed to cloud, with monitoring and alerting active"],
+  tools:["langgraph","crewai","langchain","streamlit","langsmith","docker","ragas"],
+  practice:"Build your capstone. Suggested ideas: (1) Autonomous Research Platform — multi-agent system that researches topics, writes reports, and cites all sources; (2) AI Code Review System — analyzes PRs with security, performance, and style agents; (3) AI Customer Support System — RAG + agents that handle tier-1 support autonomously. Deploy it. Then: update your LinkedIn, push to GitHub, write a LinkedIn post explaining what you built. Your AI Engineering career starts now."
+}
+
+]; // End ROADMAP
+
+// ─── STORAGE ──────────────────────────────────────────────────────
+const STORAGE_KEY = 'aiengroadmap_v2';
+function loadCompleted() {
+  try { return new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')); }
+  catch { return new Set(); }
+}
+function saveCompleted(set) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...set])); } catch {}
+}
+let completed = loadCompleted();
+
+// ─── STATE ────────────────────────────────────────────────────────
+let activePhase = 0;
+let searchTerm = '';
+
+// ─── RENDER ───────────────────────────────────────────────────────
+function render() {
+  const container = document.getElementById('roadmapMain');
+  // Group by phase then week
+  const phases = [1, 2, 3];
+  const phaseNames = {
+    1: 'Phase 1 · Foundations · Days 1–30',
+    2: 'Phase 2 · Building · Days 31–60',
+    3: 'Phase 3 · Agents & Production · Days 61–90'
+  };
+  const phaseCls = { 1: 'p1', 2: 'p2', 3: 'p3' };
+
+  let html = '';
+  for (const ph of phases) {
+    const phDays = ROADMAP.filter(d => d.phase === ph);
+    // Group by week
+    const weeks = [...new Set(phDays.map(d => d.week))];
+    let weeksHtml = '';
+    for (const wk of weeks) {
+      const wkDays = phDays.filter(d => d.week === wk);
+      const wkTitle = wkDays[0].weekTitle;
+      let cardsHtml = '';
+      for (const day of wkDays) {
+        cardsHtml += buildCard(day);
+      }
+      weeksHtml += `
+        <div class="week-group" id="week-${ph}-${wk}">
+          <div class="week-header">
+            <span class="week-lbl">Week ${wk}</span>
+            <span class="week-title">${wkTitle}</span>
+            <div class="week-line"></div>
+          </div>
+          <div class="days-grid">${cardsHtml}</div>
+        </div>`;
+    }
+    html += `
+      <div class="phase-block" id="phase-block-${ph}">
+        <div class="phase-divider">
+          <div class="phase-divider-line"></div>
+          <div class="phase-divider-content">
+            <span class="phase-badge ${phaseCls[ph]}">${ph === 1 ? '🌱 Beginner' : ph === 2 ? '🔥 Intermediate' : '🚀 Advanced'}</span>
+            <span class="phase-name">${phaseNames[ph]}</span>
+          </div>
+          <div class="phase-divider-line"></div>
+        </div>
+        ${weeksHtml}
+      </div>`;
+  }
+  container.innerHTML = html;
+  updateProgress();
+}
+
+function buildCard(day) {
+  const pCls = `p${day.phase}`;
+  const isDone = completed.has(day.day);
+  const toolsHtml = day.tools.length
+    ? day.tools.map(t => `<span class="tool-pill">${t}</span>`).join('')
+    : '<span style="color:var(--text-muted);font-size:12px;font-style:italic">No specific libraries — focus on concepts and reading</span>';
+  const tagsHtml = day.tags.map(t => `<span class="tag light">${t}</span>`).join('');
+  const conceptsHtml = day.concepts.map(c => `<li>${c}</li>`).join('');
+  return `
+  <div class="day-card ${pCls}${isDone ? ' completed' : ''}" id="card-${day.day}" data-phase="${day.phase}" data-title="${day.title.toLowerCase()}" data-tags="${day.tags.join(' ').toLowerCase()}">
+    <div class="card-top" onclick="toggleCard(${day.day}, event)">
+      <span class="day-num">DAY ${day.day}</span>
+      <div class="card-info">
+        <div class="card-title">${day.title}</div>
+        <div class="card-meta">
+          ${tagsHtml}
+          <span class="tag dur">⏱ ${day.duration}</span>
+        </div>
+      </div>
+      <div class="card-check" onclick="toggleDone(${day.day}, event)" title="Mark complete">
+        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="card-chevron">▾</div>
+    </div>
+    <div class="card-body">
+      <div class="body-section">
+        <div class="section-head"><span class="ico">💡</span> Why This Matters</div>
+        <div class="why-box">${day.why}</div>
+      </div>
+      <div class="body-section">
+        <div class="section-head"><span class="ico">🎯</span> Key Concepts</div>
+        <ul class="concepts-ul">${conceptsHtml}</ul>
+      </div>
+      <div class="body-section">
+        <div class="section-head"><span class="ico">🛠️</span> Tools & Libraries</div>
+        <div class="tools-row">${toolsHtml}</div>
+      </div>
+      <div class="body-section">
+        <div class="section-head"><span class="ico">🏗️</span> What to Practice</div>
+        <div class="practice-box">${day.practice}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ─── INTERACTIONS ─────────────────────────────────────────────────
+function toggleCard(dayNum, e) {
+  if (e.target.closest('.card-check')) return;
+  const card = document.getElementById('card-' + dayNum);
+  card.classList.toggle('open');
+}
+
+function toggleDone(dayNum, e) {
+  e.stopPropagation();
+  const card = document.getElementById('card-' + dayNum);
+  if (completed.has(dayNum)) {
+    completed.delete(dayNum);
+    card.classList.remove('completed');
+  } else {
+    completed.add(dayNum);
+    card.classList.add('completed');
+  }
+  saveCompleted(completed);
+  updateProgress();
+}
+
+function resetProgress() {
+  completed = new Set();
+  saveCompleted(completed);
+  document.querySelectorAll('.day-card').forEach(c => c.classList.remove('completed'));
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = ROADMAP.length;
+  const done = completed.size;
+  const p1done = [...completed].filter(d => ROADMAP.find(r => r.day === d && r.phase === 1)).length;
+  const p2done = [...completed].filter(d => ROADMAP.find(r => r.day === d && r.phase === 2)).length;
+  const p3done = [...completed].filter(d => ROADMAP.find(r => r.day === d && r.phase === 3)).length;
+  document.getElementById('totalDone').textContent = done;
+  document.getElementById('p1Done').textContent = p1done;
+  document.getElementById('p2Done').textContent = p2done;
+  document.getElementById('p3Done').textContent = p3done;
+  document.getElementById('progPct').textContent = `${done} / ${total}`;
+  document.getElementById('progFill').style.width = (done / total * 100) + '%';
+}
+
+function filterPhase(ph, btn) {
+  activePhase = ph;
+  document.querySelectorAll('.phase-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function filterSearch(val) {
+  searchTerm = val.trim().toLowerCase();
+  applyFilters();
+}
+
+function applyFilters() {
+  let anyVisible = false;
+  document.querySelectorAll('.day-card').forEach(card => {
+    const cardPhase = parseInt(card.dataset.phase);
+    const title = card.dataset.title;
+    const tags = card.dataset.tags;
+    const phaseMatch = activePhase === 0 || cardPhase === activePhase;
+    const searchMatch = !searchTerm || title.includes(searchTerm) || tags.includes(searchTerm);
+    if (phaseMatch && searchMatch) {
+      card.classList.remove('hidden');
+      anyVisible = true;
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+
+  // Hide/show week groups and phase blocks
+  document.querySelectorAll('.week-group').forEach(wg => {
+    const visible = wg.querySelectorAll('.day-card:not(.hidden)').length > 0;
+    wg.classList.toggle('hidden', !visible);
+  });
+  document.querySelectorAll('.phase-block').forEach(pb => {
+    const phId = parseInt(pb.id.split('-')[2]);
+    const phMatch = activePhase === 0 || phId === activePhase;
+    const hasVisible = pb.querySelectorAll('.day-card:not(.hidden)').length > 0;
+    pb.classList.toggle('hidden', !phMatch || !hasVisible);
+  });
+
+  document.getElementById('noResults').style.display = anyVisible ? 'none' : 'block';
+}
+
+function collapseAll() {
+  document.querySelectorAll('.day-card.open').forEach(c => c.classList.remove('open'));
+}
+
+// ─── SCROLL TO TOP ────────────────────────────────────────────────
+const scrollBtn = document.getElementById('scrollTopBtn');
+window.addEventListener('scroll', () => {
+  scrollBtn.classList.toggle('show', window.scrollY > 400);
+});
+
+// ─── INIT ─────────────────────────────────────────────────────────
+render();
+</script>
+</body>
+</html>
